@@ -1,22 +1,26 @@
-# Reference Outcome (Concise)
+# Reference Outcome (Scenario-Focused)
 
-This reference is intentionally concise. Use it to compare structure and expected quality, not to copy blindly.
+Use this as a quality reference for structure and decision-making.
 
-## Suggested final `app.js` shape
+## Suggested final implementation shape
 
-- `Header` component: fictional brand/title and clear subtitle.
-- `ServiceList` component: short list of fictional services.
-- `Notice` component: static caution that the demo is fictional.
-- `HelpCard` component: beginner-friendly next steps/contact placeholder.
-- `App` component: keeps simple local state and composes the sections.
+- Small functional components in `starter/app.js`
+- A fictional "Community Support" section added/refined with beginner-friendly naming
+- Clear static-demo notice to avoid real-service confusion
 
-## Example validation notes
+## Validation Notes (example)
 
-### Validation Notes
-- Confirmed all workshop content is fictional and static.
-- Confirmed no real credentials, tokens, passwords, connection strings, or personal data.
-- Confirmed guidance references MCP allowlist and least-privilege expectations.
-- Optional local render check completed only if learner environment supports opening `index.html`.
+- Reviewed all `/workshop` files for secrets, tokens, passwords, connection strings, and personal data: none found.
+- Confirmed workshop remains fictional/static and contains no production integration guidance.
+- Confirmed references to MCP usage are aligned to allowlist and least-privilege policy documents.
+
+## Handoff Notes (example)
+
+- Primary agent delivered minimal complete UI update first, then planned specialist follow-up.
+- Frontend specialist request scoped to accessibility polish only.
+- Test specialist request scoped to practical validation approach for current environment.
+- Security reviewer request scoped to policy alignment and risky-operation checks.
+- Documentation specialist request scoped to concise clarity improvements.
 
 ## Security reminder
-Never add real banking data or production integrations to this workshop prototype.
+Never use real banking/customer data, credentials, or production operations in this workshop.

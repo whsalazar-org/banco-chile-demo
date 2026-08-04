@@ -1,102 +1,94 @@
-# 45-Minute Workshop: Build a Fictional Banco Vecinal Prototype (Static)
+# 45-Minute Workshop: Real-World Agent + MCP Workflow (Fictional Banco Vecinal)
 
-> **Important:** This workshop builds a **fictional static prototype** for learning purposes. It is **not** a real banking application.
+> **Important:** This workshop creates a **fictional static prototype** and workflow simulation. It is **not** a real banking application.
 
-This self-contained workshop helps you practice the repository’s React + JavaScript and Copilot best practices in short, incremental exercises.
+This workshop is focused on a realistic delivery scenario: you are the **primary agent** delivering a small fictional website update while correctly using custom specialists and MCP governance.
 
-## Workshop goals
+## Scenario
 
-By the end, you will have a small fictional website prototype and you will have practiced:
-- Small, focused functional components
-- Beginner-friendly naming and scoped changes
-- Following repository instructions and reusable guidance
-- Security and governance habits for agents and MCP tools
-- Lightweight validation and documentation wrap-up
+You received a request to publish a simple “Community Support” page for fictional **Banco Vecinal**. You must deliver the page quickly, safely, and with proper delegation/governance:
+- Keep implementation small and beginner-friendly.
+- Delegate focused tasks to the right specialists.
+- Use MCP policy/catalog as the source of truth.
+- Avoid unsafe operations and unapproved capabilities.
 
 ## Prerequisites
 
 ### Learner
-- You have cloned this repository locally.
-- You can create and edit files.
-- You can read repository docs in:
+- Local clone of this repository.
+- Ability to read/edit files.
+- Read these source-of-truth docs:
   - [`README.md`](../README.md)
   - [`docs/agent-ecosystem.md`](../docs/agent-ecosystem.md)
   - [`mcp/README.md`](../mcp/README.md)
   - [`mcp/policies/approved-tools.md`](../mcp/policies/approved-tools.md)
 
 ### Facilitator
-- Ensure learners understand this is a static prototype workshop.
-- Keep learners on the timed core path (≤45 minutes).
-- Encourage short reflections after each exercise.
+- Keep the session on the core path (≤45 minutes).
+- Prompt learners to explain delegation and approval decisions, not just UI output.
 
 ---
 
 ## Core path timing (45 minutes total)
 
-1. Exercise 1 — Starter structure and theme (8 min)
-2. Exercise 2 — Build focused UI components (12 min)
-3. Exercise 3 — Apply instructions, skills, and specialist delegation (8 min)
-4. Exercise 4 — Add practical validation step (7 min)
-5. Exercise 5 — Security/MCP governance review + final docs review (10 min)
+1. Exercise 1 — Triage request and design execution plan (8 min)
+2. Exercise 2 — Implement scoped UI as primary agent (10 min)
+3. Exercise 3 — Delegate to custom specialists (9 min)
+4. Exercise 4 — MCP policy and approval-gate decisions (8 min)
+5. Exercise 5 — Final security/documentation review and handoff (10 min)
 
 **Total estimated duration: 45 minutes**
 
 ---
 
-## Files you will create in `/workshop`
+## Workshop files (all under `/workshop`)
 
 - [`starter/index.html`](./starter/index.html)
 - [`starter/styles.css`](./starter/styles.css)
 - [`starter/app.js`](./starter/app.js)
-- [`exercises/01-starter-structure.md`](./exercises/01-starter-structure.md)
-- [`exercises/02-focused-ui.md`](./exercises/02-focused-ui.md)
-- [`exercises/03-copilot-practices.md`](./exercises/03-copilot-practices.md)
-- [`exercises/04-validation.md`](./exercises/04-validation.md)
-- [`exercises/05-security-and-wrapup.md`](./exercises/05-security-and-wrapup.md)
+- [`exercises/01-triage-and-plan.md`](./exercises/01-triage-and-plan.md)
+- [`exercises/02-primary-agent-implementation.md`](./exercises/02-primary-agent-implementation.md)
+- [`exercises/03-specialist-delegation.md`](./exercises/03-specialist-delegation.md)
+- [`exercises/04-mcp-governance-gates.md`](./exercises/04-mcp-governance-gates.md)
+- [`exercises/05-final-review-and-handoff.md`](./exercises/05-final-review-and-handoff.md)
 - [`checklists/final-checklist.md`](./checklists/final-checklist.md)
 - [`references/example-solution.md`](./references/example-solution.md)
 
 ---
 
-## How to use Copilot responsibly in this workshop
+## Responsible Copilot usage in this scenario
 
-Use specialist agents only when they add value to a focused task:
+Use specialists when task boundaries are clear:
+- **frontend-specialist**: focused UI/accessibility improvements.
+- **test-specialist**: practical validation strategy and testability guidance.
+- **security-reviewer**: secret handling, permissions, risky-operation checks.
+- **documentation-specialist**: concise final docs/handoff wording.
 
-- **Frontend specialist**: ask for help refining small React/JS UI pieces and accessibility.
-- **Test specialist**: ask for help drafting practical validation/test steps when infrastructure exists.
-- **Security reviewer**: ask for a focused pass on secret handling, permissions, and risky operations.
-- **Documentation specialist**: ask for concise, clear markdown improvements.
-
-Good governance habits:
-- Use the MCP catalog and approved-tools policy as your source of truth:
-  - [`mcp/catalog/`](../mcp/catalog/)
-  - [`mcp/policies/approved-tools.md`](../mcp/policies/approved-tools.md)
-- Prefer read-only integrations and least privilege.
+Use MCP governance rules before actions:
+- Check approved server/tool scope in [`mcp/catalog/`](../mcp/catalog/).
+- Confirm policy constraints in [`mcp/policies/approved-tools.md`](../mcp/policies/approved-tools.md).
+- Prefer least privilege and read-only operations by default.
 - Require human approval for write, destructive, or production-impacting operations.
-- Never hardcode secrets, tokens, passwords, connection strings, or personal data.
 
 ---
 
 ## Run the workshop
 
-Follow the exercises in order; each one builds on previous files:
+Complete in order:
+1. [Exercise 1: Triage and plan](./exercises/01-triage-and-plan.md)
+2. [Exercise 2: Primary-agent implementation](./exercises/02-primary-agent-implementation.md)
+3. [Exercise 3: Specialist delegation](./exercises/03-specialist-delegation.md)
+4. [Exercise 4: MCP governance gates](./exercises/04-mcp-governance-gates.md)
+5. [Exercise 5: Final review and handoff](./exercises/05-final-review-and-handoff.md)
 
-1. [Exercise 1: Starter structure and theme](./exercises/01-starter-structure.md)
-2. [Exercise 2: Build focused UI components](./exercises/02-focused-ui.md)
-3. [Exercise 3: Apply instructions, skills, and specialist delegation](./exercises/03-copilot-practices.md)
-4. [Exercise 4: Add practical validation](./exercises/04-validation.md)
-5. [Exercise 5: Security/MCP governance review + wrap-up](./exercises/05-security-and-wrapup.md)
-
-Then complete:
+Then finish:
 - [Final checklist](./checklists/final-checklist.md)
 - [Reference outcome](./references/example-solution.md)
 
 ---
 
-## Optional stretch work (beyond core 45 minutes)
+## Optional stretch work (outside 45-minute core)
 
-Clearly optional ideas after the core workshop:
-- Add one extra presentational section (e.g., FAQ) while keeping component boundaries small.
-- Expand validation notes with one additional manual accessibility check.
-- Improve docs wording using the documentation specialist.
-
+- Add a second fictional page section and justify delegation boundaries again.
+- Expand approval-gate notes with one additional high-risk action example.
+- Improve handoff wording with documentation-specialist feedback.
