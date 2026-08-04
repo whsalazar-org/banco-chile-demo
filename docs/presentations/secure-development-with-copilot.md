@@ -9,8 +9,6 @@ title: Secure Development Patterns with GitHub Copilot
 
 **From autocomplete to governed autonomy**
 
-Banco Vecinal reference architecture
-`whsalazar-org/banco-chile-demo`
 
 <!-- Speaker notes: Frame the session. The question is no longer "should we use Copilot" but "how do we make AI-assisted delivery auditable, least-privilege, and reviewable — the same bar we hold human contributors to." -->
 
