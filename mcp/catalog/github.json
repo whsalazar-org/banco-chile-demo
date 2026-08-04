@@ -1,0 +1,47 @@
+{
+  "id": "github",
+  "name": "GitHub MCP Server",
+  "version": "pinned-by-release-tag",
+  "purpose": "Read issues, pull requests, workflow runs, and repository metadata to support planning and review.",
+  "owner": "platform-engineering",
+  "dataClassification": "internal",
+  "environments": {
+    "allowed": ["development", "test"],
+    "productionRequiresApproval": true
+  },
+  "accessMode": "read-only",
+  "allowedTools": [
+    "get_file_contents",
+    "list_issues",
+    "issue_read",
+    "list_pull_requests",
+    "pull_request_read",
+    "search_code",
+    "list_workflow_runs"
+  ],
+  "deniedTools": [
+    "merge_pull_request",
+    "delete_file",
+    "create_repository",
+    "push_files"
+  ],
+  "authentication": {
+    "method": "environment-variable",
+    "secretRef": "GITHUB_MCP_TOKEN",
+    "notes": "Managed secret injected at runtime. Never commit token values."
+  },
+  "logging": {
+    "auditEnabled": true,
+    "redactFields": ["authorization", "token", "email"]
+  },
+  "limits": {
+    "timeoutSeconds": 30,
+    "requiresHumanApprovalFor": ["write", "merge", "delete"]
+  },
+  "review": {
+    "lastReviewed": "2026-08-04",
+    "nextReview": "2026-11-04",
+    "approvedBy": "security-review",
+    "decommissionPlan": "Remove this entry and revoke GITHUB_MCP_TOKEN when no agent workflow depends on it."
+  }
+}

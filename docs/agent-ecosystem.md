@@ -43,6 +43,12 @@ mcp/
 
 Use `.github/agents/` for repository-level custom agents. Keep agent profiles short, task-specific, and versioned with the code they support. GitHub documents repository-level profiles in [About custom agents](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-custom-agents).
 
+This repository implements that layout:
+
+- Custom agent profiles: [`frontend-specialist`](../.github/agents/frontend-specialist.agent.md), [`test-specialist`](../.github/agents/test-specialist.agent.md), [`security-reviewer`](../.github/agents/security-reviewer.agent.md), [`documentation-specialist`](../.github/agents/documentation-specialist.agent.md), [`release-reviewer`](../.github/agents/release-reviewer.agent.md).
+- MCP catalog and governance: [`mcp/README.md`](../mcp/README.md), entries for [GitHub](../mcp/catalog/github.json), [browser](../mcp/catalog/browser.json), and [observability](../mcp/catalog/observability.json).
+- Approved tools policy: [`mcp/policies/approved-tools.md`](../mcp/policies/approved-tools.md).
+
 ## 3. Layered architecture
 
 ### Layer 1: Shared repository instructions

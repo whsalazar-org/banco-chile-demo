@@ -1,0 +1,43 @@
+{
+  "id": "observability",
+  "name": "Observability MCP Server",
+  "version": "pinned-by-release-tag",
+  "purpose": "Query redacted logs, traces, and metrics to diagnose failures reported in issues or pull requests.",
+  "owner": "sre-team",
+  "dataClassification": "confidential-redacted",
+  "environments": {
+    "allowed": ["test", "staging"],
+    "productionRequiresApproval": true
+  },
+  "accessMode": "read-only",
+  "allowedTools": [
+    "query_logs",
+    "query_metrics",
+    "get_trace"
+  ],
+  "deniedTools": [
+    "create_alert",
+    "delete_dashboard",
+    "silence_alert"
+  ],
+  "authentication": {
+    "method": "managed-secret",
+    "secretRef": "OBSERVABILITY_MCP_API_KEY",
+    "notes": "Key is provisioned per environment by the SRE team and never committed."
+  },
+  "logging": {
+    "auditEnabled": true,
+    "redactFields": ["userId", "email", "ipAddress", "accountNumber", "authorization"]
+  },
+  "limits": {
+    "timeoutSeconds": 45,
+    "maxRowsPerQuery": 500,
+    "requiresHumanApprovalFor": ["production queries", "any write or alerting action"]
+  },
+  "review": {
+    "lastReviewed": "2026-08-04",
+    "nextReview": "2026-11-04",
+    "approvedBy": "security-review",
+    "decommissionPlan": "Revoke OBSERVABILITY_MCP_API_KEY and remove this entry when agent-assisted diagnostics end."
+  }
+}

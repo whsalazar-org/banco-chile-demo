@@ -1,0 +1,43 @@
+{
+  "id": "browser",
+  "name": "Browser / Playwright MCP Server",
+  "version": "pinned-by-release-tag",
+  "purpose": "Inspect and exercise the web application in test environments for UI verification and accessibility checks.",
+  "owner": "frontend-guild",
+  "dataClassification": "test-data-only",
+  "environments": {
+    "allowed": ["local", "test"],
+    "productionRequiresApproval": true
+  },
+  "accessMode": "read-only-navigation",
+  "allowedTools": [
+    "browser_navigate",
+    "browser_snapshot",
+    "browser_take_screenshot",
+    "browser_console_messages",
+    "browser_click",
+    "browser_type"
+  ],
+  "deniedTools": [
+    "browser_file_upload"
+  ],
+  "authentication": {
+    "method": "environment-variable",
+    "secretRef": "TEST_APP_BASE_URL",
+    "notes": "Points at a non-production test host. No production URLs or credentials are stored here."
+  },
+  "logging": {
+    "auditEnabled": true,
+    "redactFields": ["cookies", "authorization", "formData"]
+  },
+  "limits": {
+    "timeoutSeconds": 60,
+    "requiresHumanApprovalFor": ["navigation to non-test hosts", "file uploads"]
+  },
+  "review": {
+    "lastReviewed": "2026-08-04",
+    "nextReview": "2026-11-04",
+    "approvedBy": "security-review",
+    "decommissionPlan": "Remove this entry when browser-based agent verification is no longer used."
+  }
+}
