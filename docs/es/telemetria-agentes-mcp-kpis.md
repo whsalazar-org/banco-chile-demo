@@ -13,7 +13,7 @@ Este documento define un modelo de telemetría y un marco de KPI para medir:
 - La eficiencia, calidad, confiabilidad y costo de los agentes.
 - Los resultados para usuarios y negocio, no solo la actividad.
 
-El diseño es adecuado para la demostración actual en JavaScript/React y puede implementarse detrás de un pequeño adaptador de telemetría, sin acoplar la interfaz de usuario a un proveedor específico de observabilidad.
+El diseño puede implementarse detrás de un pequeño adaptador de telemetría, sin acoplar la interfaz de usuario a un proveedor específico de observabilidad.
 
 > [“Un SLI es un indicador de nivel de servicio: una medida cuantitativa cuidadosamente definida.”](https://sre.google/sre-book/service-level-objectives/)
 
