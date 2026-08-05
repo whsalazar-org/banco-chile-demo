@@ -109,6 +109,79 @@ Sesión de usuario o tarea de GitHub
 
 Nunca usar identificadores de usuario sin procesar como etiquetas de métricas. Preferir un identificador seudónimo revisado desde el punto de vista de privacidad únicamente en los registros.
 
+## Diagrama de arquitectura de telemetría
+
+```mermaid
+flowchart LR
+    subgraph Fuentes["1. Fuentes de actividad"]
+        U["Usuario"]
+        C["GitHub Copilot: GitHub, VS Code, CLI y cloud agent"]
+        R["Repositorio GitHub"]
+    end
+
+    subgraph Ejecucion["2. Ejecucion del agente"]
+        O["Orquestador o agente"]
+        M["Modelo"]
+        P["Politica de autorizacion"]
+    end
+
+    subgraph MCP["3. Herramientas MCP"]
+        G["Gateway o cliente MCP"]
+        S["Servidores MCP"]
+        X["Sistemas externos"]
+    end
+
+    subgraph Instrumentacion["4. Instrumentacion"]
+        H["Hooks de agente (propia)"]
+        A["Audit log de GitHub (nativa)"]
+        UM["Metricas de uso de Copilot (nativa)"]
+        OT["OpenTelemetry y collector propio (propia)"]
+    end
+
+    subgraph Plataforma["5. Almacenamiento y consumo"]
+        B["Backend de telemetria"]
+        ME["Metricas"]
+        TR["Trazas"]
+        EV["Eventos"]
+        D["Dashboards y alertas"]
+        K["Analisis de KPI"]
+    end
+
+    U --> C
+    C --> R
+    C --> O
+    R --> O
+    O --> M
+    O --> P
+    P --> G
+    O --> G
+    G --> S
+    S --> X
+
+    O -.-> H
+    G -.-> H
+    C ==> UM
+    C ==> A
+    R ==> A
+    H --> OT
+    S -.-> OT
+
+    OT --> B
+    UM ==> B
+    A ==> B
+    B --> ME
+    B --> TR
+    B --> EV
+    ME --> D
+    TR --> D
+    EV --> D
+    D --> K
+```
+
+Leyenda: las flechas con linea doble (`==>`) representan telemetria nativa o derivada de GitHub; las flechas punteadas (`-.->`) representan telemetria propia que requiere instrumentacion adicional.
+
+GitHub y Copilot aportan de forma nativa o derivada la adopcion, la actividad de agentes, las sesiones, los pull requests y la auditoria, segun la superficie utilizada. En cambio, las llamadas MCP individuales, sus latencias, reintentos, validaciones, costos por objetivo y la calidad empresarial requieren instrumentacion propia cuando no estan expuestas nativamente.
+
 ## 5. Señales de telemetría
 
 ### 5.1 Trazas
