@@ -1,8 +1,10 @@
 # Usar Copilot para acelerar el modelado en BigQuery
 
+> **Formato:** presentación ejecutiva/técnica lista para convertir a PowerPoint. Cada sección representa una diapositiva. Mantener entre 3 y 6 viñetas visibles por diapositiva; usar las notas del presentador para ampliar el contenido.
+
 ---
 
-## Título
+## Diapositiva 1 — Título
 
 # Usar Copilot para acelerar el modelado en BigQuery
 
@@ -16,7 +18,7 @@
 
 ---
 
-## Objetivos
+## Diapositiva 2 — Objetivos
 
 Al finalizar, el equipo podrá:
 
@@ -28,7 +30,7 @@ Al finalizar, el equipo podrá:
 
 ---
 
-## Principio de trabajo
+## Diapositiva 3 — Principio de trabajo
 
 ## Copilot acelera la ejecución; las personas gobiernan las decisiones
 
@@ -49,7 +51,7 @@ Al finalizar, el equipo podrá:
 
 ---
 
-## Qué artefactos se pueden acelerar?
+## Diapositiva 4 — ¿Qué artefactos se pueden acelerar?
 
 - Notas de modelos conceptuales y lógicos.
 - Tablas de mapeo origen-destino.
@@ -63,7 +65,7 @@ Al finalizar, el equipo podrá:
 
 ---
 
-## Estructura recomendada
+## Diapositiva 5 — Estructura recomendada
 
 ```text
 bigquery/
@@ -89,7 +91,7 @@ bigquery/
 
 ---
 
-## Flujo de trabajo de extremo a extremo
+## Diapositiva 6 — Flujo de trabajo de extremo a extremo
 
 1. **Definir** el contrato de modelado.
 2. **Mapear** los campos origen-destino.
@@ -105,7 +107,7 @@ Generar un artefacto por vez y comparar cada resultado con la fuente aprobada.
 
 ---
 
-## Paso 1: contrato de modelado
+## Diapositiva 7 — Paso 1: contrato de modelado
 
 Antes de solicitar SQL, documentar:
 
@@ -126,7 +128,7 @@ Usar placeholders para proyectos, datasets, credenciales y valores sensibles. Nu
 
 ---
 
-## Prompt: contrato de modelado
+## Diapositiva 8 — Prompt: contrato de modelado
 
 ```text
 Actúa como ingeniero senior de analítica. Crea un contrato de modelado
@@ -149,7 +151,7 @@ Un contrato revisable antes de implementar transformaciones.
 
 ---
 
-## Paso 2: mapeo origen-destino
+## Diapositiva 9 — Paso 2: mapeo origen-destino
 
 Solicitar el mapeo antes del SQL para separar decisiones de negocio de detalles de implementación.
 
@@ -171,7 +173,7 @@ La trazabilidad facilita la revisión, el mantenimiento y el análisis de impact
 
 ---
 
-## Ejemplo de mapeo
+## Diapositiva 10 — Ejemplo de mapeo
 
 ```yaml
 - target: customer_key
@@ -192,7 +194,7 @@ Copilot no debe inventar la regla de resolución de identidades. La debe proporc
 
 ---
 
-## Paso 3: esquema tipado
+## Diapositiva 11 — Paso 3: esquema tipado
 
 Generar dos artefactos sincronizados:
 
@@ -209,7 +211,7 @@ Generar dos artefactos sincronizados:
 
 ---
 
-## Tipos y representación
+## Diapositiva 12 — Tipos y representación
 
 BigQuery incluye tipos como:
 
@@ -236,7 +238,7 @@ export interface Customer {
 
 ---
 
-## Paso 4: modelo SQL
+## Diapositiva 13 — Paso 4: modelo SQL
 
 Solicitar el modelo después de revisar el mapeo y el esquema.
 
@@ -255,7 +257,7 @@ Solicitar el modelo después de revisar el mapeo y el esquema.
 
 ---
 
-## Modelos incrementales
+## Diapositiva 14 — Modelos incrementales
 
 Para un modelo incremental, especificar antes de generar:
 
@@ -272,7 +274,7 @@ Copilot debe generar una **PREGUNTA ABIERTA**, no asumir silenciosamente una reg
 
 ---
 
-## Revisión del diseño
+## Diapositiva 15 — Revisión del diseño
 
 Solicitar una revisión separada de la generación de código.
 
@@ -292,7 +294,7 @@ Solicitar una revisión separada de la generación de código.
 
 ---
 
-## Ciclo de validación
+## Diapositiva 16 — Ciclo de validación
 
 1. **Generar:** un artefacto por solicitud.
 2. **Inspeccionar:** nombres, granularidad, tipos, nulos, linaje y seguridad.
@@ -304,7 +306,7 @@ Solicitar una revisión separada de la generación de código.
 
 ---
 
-## Prompts de revisión
+## Diapositiva 17 — Prompts de revisión
 
 ```text
 Compara el SQL, el esquema JSON y el mapeo YAML.
@@ -324,7 +326,192 @@ No generes SQL destructivo, DDL, credenciales ni comandos de producción.
 
 ---
 
-## Seguridad y gobierno
+## Diapositiva 18 — Ejercicio 1: contrato de modelado
+
+### Objetivo
+
+Definir el contrato para una dimensión `customer` sin escribir SQL.
+
+### Datos de entrada ficticios
+
+- `raw.crm_customer.customer_id`: identificador del CRM.
+- `raw.crm_customer.email`: correo electrónico.
+- `raw.crm_customer.status`: estado del cliente.
+- `raw.crm_customer.created_at`: fecha de creación local.
+- `raw.core_party.party_id`: identificador maestro.
+- `raw.core_party.country_code`: país de residencia.
+
+### Actividad — 10 minutos
+
+1. Identificar la granularidad y la clave de negocio.
+2. Clasificar cada campo como obligatorio u opcional.
+3. Documentar reglas de zona horaria, unicidad y nulos.
+4. Marcar al menos tres **PREGUNTAS ABIERTAS**.
+5. Pedir a Copilot un contrato de modelado.
+
+### Prompt sugerido
+
+```text
+Crea un contrato de modelado para dim_customer usando únicamente
+los metadatos proporcionados. No inventes reglas de identidad.
+Marca las ambigüedades como PREGUNTAS ABIERTAS y clasifica los campos sensibles.
+```
+
+### Entregable y criterio de éxito
+
+- Entregable: `customer-contract.md`.
+- Éxito: el contrato declara granularidad, claves, tipos esperados, seguridad y preguntas pendientes.
+
+---
+
+## Diapositiva 19 — Ejercicio 2: mapeo origen-destino
+
+### Objetivo
+
+Crear un mapeo trazable a partir del contrato aprobado.
+
+### Actividad — 12 minutos
+
+1. Crear `mappings/customer.yml`.
+2. Mapear `customer_key`, `email`, `status`, `created_at` y `country_code`.
+3. Añadir transformación, tipo, modo, nulabilidad y regla de calidad.
+4. Marcar como `inferred` cualquier transformación no confirmada.
+5. Solicitar a Copilot una comparación del mapeo contra el contrato.
+
+### Prompt sugerido
+
+```text
+Genera mappings/customer.yml a partir del contrato aprobado.
+Conserva el linaje de cada campo, marca las inferencias,
+no resuelvas conflictos silenciosamente y devuelve las preguntas abiertas.
+```
+
+### Entregable y criterio de éxito
+
+- Entregable: archivo YAML válido y lista de preguntas abiertas.
+- Éxito: cada campo destino tiene origen, transformación, tipo, calidad y sensibilidad.
+
+---
+
+## Diapositiva 20 — Ejercicio 3: esquema BigQuery y modelo tipado
+
+### Objetivo
+
+Generar dos representaciones sincronizadas del mismo contrato.
+
+### Actividad — 12 minutos
+
+1. Generar `schemas/customer.json`.
+2. Generar `schemas/customer.ts` o un modelo C# equivalente.
+3. Representar correctamente campos anulables y timestamps.
+4. Comparar nombre, tipo y nulabilidad entre ambos archivos.
+5. Pedir a Copilot que liste las diferencias sin modificar archivos.
+
+### Prompt sugerido
+
+```text
+Genera un esquema JSON de BigQuery y un modelo tipado a partir de
+mappings/customer.yml. Conserva nombres, modos, descripciones y anidamiento.
+Reporta cualquier conversión que pueda perder información.
+```
+
+### Entregable y criterio de éxito
+
+- Entregables: JSON y modelo tipado.
+- Éxito: no existen discrepancias no justificadas entre los dos contratos.
+
+---
+
+## Diapositiva 21 — Ejercicio 4: modelo SQL y pruebas
+
+### Objetivo
+
+Crear una primera versión de `dim_customer` y sus controles de calidad.
+
+### Actividad — 15 minutos
+
+1. Generar `models/marts/dim_customer.sql`.
+2. Prohibir `SELECT *` y exigir columnas explícitas.
+3. Resolver duplicados de forma determinista.
+4. Generar pruebas de no nulidad, unicidad, valores aceptados y conteos.
+5. Revisar el SQL buscando fan-out, conversiones inseguras y errores de zona horaria.
+
+### Prompt sugerido
+
+```text
+Genera el modelo dim_customer.sql y pruebas de calidad a partir del
+mapeo y esquema aprobados. Usa GoogleSQL, columnas explícitas,
+conversiones declaradas y comportamiento determinista para duplicados.
+No incluyas identificadores de proyecto ni comandos de despliegue.
+```
+
+### Entregables y criterio de éxito
+
+- Entregables: SQL y consultas de prueba.
+- Éxito: el SQL conserva la granularidad y cada regla importante tiene una validación.
+
+---
+
+## Diapositiva 22 — Ejercicio 5: revisión de seguridad y costo
+
+### Objetivo
+
+Detectar riesgos antes de solicitar aprobación para despliegue.
+
+### Actividad — 10 minutos
+
+1. Clasificar `email` como dato sensible o restringido según la política local.
+2. Proponer una etiqueta de política sin inventar el identificador del recurso.
+3. Revisar si el modelo requiere seguridad a nivel de fila.
+4. Evaluar particionamiento, clustering y volumen estimado de lectura.
+5. Redactar tres riesgos y una acción para cada uno.
+
+### Prompt sugerido
+
+```text
+Revisa el modelo, mapeo y esquema para detectar riesgos de PII,
+acceso a columnas, filtros de filas, costo de consulta, particionamiento
+y clustering. No asignes etiquetas ni permisos reales. Devuelve riesgos,
+evidencia, responsable y acción recomendada.
+```
+
+### Entregable y criterio de éxito
+
+- Entregable: `customer-review.md`.
+- Éxito: cada riesgo incluye evidencia, propietario y decisión requerida.
+
+---
+
+## Diapositiva 23 — Ejercicio 6: reconciliación y pull request
+
+### Objetivo
+
+Completar la revisión final como equipo multidisciplinario.
+
+### Actividad — 10 minutos
+
+1. Comparar contrato, YAML, JSON, modelo SQL y pruebas.
+2. Resolver o asignar todas las preguntas abiertas.
+3. Completar la plantilla de pull request.
+4. Identificar qué generó Copilot y qué verificó una persona.
+5. Decidir si el cambio está listo, bloqueado o requiere más información.
+
+### Prompt sugerido
+
+```text
+Compara todos los artefactos del modelo customer y genera una matriz
+con: campo, diferencia, impacto, evidencia, responsable y estado.
+No modifiques archivos ni apruebes el despliegue.
+```
+
+### Entregable y criterio de éxito
+
+- Entregable: matriz de reconciliación y resumen de pull request.
+- Éxito: no quedan diferencias críticas ni decisiones de seguridad sin responsable.
+
+---
+
+## Diapositiva 24 — Seguridad y gobierno
 
 ### Revisión humana obligatoria
 
@@ -345,7 +532,7 @@ Nunca incluir secretos, cadenas de conexión o datos productivos innecesarios en
 
 ---
 
-## DCriterios de finalización
+## Diapositiva 25 — Criterios de finalización
 
 Un cambio está listo para revisión cuando:
 
@@ -362,7 +549,7 @@ Un cambio está listo para revisión cuando:
 
 ---
 
-## Plantilla de pull request
+## Diapositiva 26 — Plantilla de pull request
 
 ```markdown
 ## Cambio de modelado BigQuery
@@ -395,17 +582,18 @@ seguridad, pruebas y seguridad del despliegue.
 
 ---
 
-## Mensajes clave
+## Diapositiva 27 — Mensajes clave
 
 1. **Definir antes de generar:** el contrato evita supuestos ocultos.
 2. **Mapear antes de implementar:** la trazabilidad guía el SQL y el esquema.
 3. **Tipar de forma sincronizada:** BigQuery y las aplicaciones deben compartir el contrato.
 4. **Validar fuera de producción:** las pruebas protegen calidad y costos.
-5. **Mantener control humano:** negocio, datos y seguridad aprueban las decisiones críticas.
+5. **Practicar con datos ficticios:** los ejercicios permiten aprender sin exponer información real.
+6. **Mantener control humano:** negocio, datos y seguridad aprueban las decisiones críticas.
 
 ---
 
-## Fuentes oficiales
+## Diapositiva 28 — Fuentes oficiales
 
 - [Ingeniería de prompts para GitHub Copilot](https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering)
 - [Personalizar Copilot para un proyecto](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-copilot-overview)
@@ -413,3 +601,10 @@ seguridad, pruebas y seguridad del despliegue.
 - [Control de acceso a nivel de columna en BigQuery](https://cloud.google.com/bigquery/docs/column-level-security-intro)
 - [Seguridad a nivel de fila en BigQuery](https://cloud.google.com/bigquery/docs/row-level-security-intro)
 
+### Nota de conversión
+
+- Usar los títulos de cada diapositiva como títulos de lámina.
+- Convertir los prompts y ejemplos en elementos visuales editables.
+- Mantener los enlaces como hipervínculos en las diapositivas.
+- Usar las actividades como diapositivas de taller o material complementario.
+- Convertir los tiempos, entregables y criterios de éxito en notas del presentador.
