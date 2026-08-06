@@ -9,8 +9,7 @@ title: Agentes locales seguros y centralizados para repositorios institucionales
 
 ## Capacidades aprobadas para los repositorios del banco
 
-**Audiencia:** Ingeniería, plataforma, ciberseguridad, riesgos y dueños de repositorios  
-**Alcance:** Agentes locales de IDE/CLI, perfiles personalizados e integraciones MCP
+**Audiencia:** Ingeniería, plataforma, ciberseguridad, riesgos y dueños de repositorios
 
 ---
 
@@ -18,262 +17,291 @@ title: Agentes locales seguros y centralizados para repositorios institucionales
 
 > **Centralizar políticas, distribución y evidencia; no todos los flujos de desarrollo.**
 
-El banco debe ofrecer:
+El banco necesita:
 
-- Catálogo central de agentes y herramientas aprobadas.
-- Perfiles reutilizables con mínimo privilegio.
-- Controles de repositorio para excepciones locales.
-- Identidad sólida, aislamiento de secretos, clasificación de datos y auditoría.
-- Aprobación humana para acciones productivas, destructivas, externas o reguladas.
+- Catálogo aprobado.
+- Perfiles con mínimo privilegio.
+- Controles para excepciones locales.
+- Identidad, privacidad y auditoría.
+- Aprobación humana para acciones de alto impacto.
 
-[GitHub: Gestión empresarial de agentes](https://docs.github.com/en/copilot/concepts/agents/enterprise-management)  
-[NIST: Marco de gestión de riesgos de IA](https://www.nist.gov/itl/ai-risk-management-framework)
+---
+
+## Principio de diseño
+
+### La autonomía local debe estar gobernada
+
+- **Centralizar:** políticas, perfiles y registro de herramientas.
+- **Localizar:** ejecución en el IDE o CLI del desarrollador.
+- **Restringir:** herramientas, datos, redes y credenciales.
+- **Verificar:** pruebas, escaneos y revisiones.
+- **Revocar:** acceso ante riesgo o incumplimiento.
 
 ---
 
 ## ¿Qué es un agente local?
 
-| Capacidad | Ubicación | Gobierno central |
-| --- | --- | --- |
-| Agente del repositorio | `.github/agents/` | Versionado con el código |
-| Agente organizacional | Repositorio `.github` o `.github-private` | Compartido entre repositorios |
-| Agente empresarial | Repositorio empresarial `.github-private` | Compartido entre organizaciones |
-| Agente IDE/CLI | Equipo del desarrollador | Perfiles, políticas, endpoint y monitoreo |
-| Servidor MCP local | Equipo del desarrollador | Registro, herramientas, secretos, red y datos restringidos |
+Un agente local es una capacidad de IA que se ejecuta en el entorno del desarrollador y puede:
 
-**Distinción clave:** GitHub no administra directamente la configuración local del IDE. Se requieren controles combinados de identidad, endpoint, red y repositorio.
+- Leer código y documentación.
+- Proponer o modificar archivos.
+- Ejecutar pruebas y comandos.
+- Invocar herramientas mediante MCP.
 
-[GitHub: Agentes personalizados](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/copilot-cli/about-custom-agents)
+**La ejecución es local; las reglas deben ser institucionales.**
 
 ---
 
-## Modelo operativo objetivo
+## Capas de distribución
+
+| Capa | Función |
+| --- | --- |
+| Empresarial | Políticas, riesgo y controles obligatorios |
+| Organizacional | Catálogo de agentes, skills y plantillas |
+| Repositorio | Configuración, pruebas y revisiones locales |
+| Equipo del desarrollador | Ejecución con perfiles aprobados |
+
+---
+
+## Modelo operativo
 
 ```text
-Gobierno empresarial de IA
-  ├─ Catálogo y versiones aprobadas
-  ├─ Registro MCP y listas permitidas
-  ├─ Identidad, datos, red y endpoints
-  └─ Auditoría, métricas e incidentes
-          ↓
-Repositorio de plataforma organizacional
-  └─ Agentes, instrucciones, skills y plantillas
-          ↓
+Gobierno empresarial
+        ↓
+Catálogo organizacional
+        ↓
 Repositorio institucional
-  └─ Configuración, MCP, pruebas y revisiones
-          ↓
+        ↓
 Equipo del desarrollador
-  └─ Ejecución solo con perfiles y herramientas aprobados
 ```
 
-**Principio:** las políticas bajan; la evidencia sube.
+**Las políticas bajan; la evidencia sube.**
 
 ---
 
-## Patrón de distribución central
+## Catálogo central de agentes
 
-### Línea base empresarial
+Cada agente publicado debe incluir:
 
-- Reglas obligatorias de seguridad, privacidad y uso aceptable.
-- Dueños para agentes, MCP, datos y aprobaciones.
-- Niveles de riesgo: bajo, moderado, alto y prohibido.
-
-### Catálogo organizacional
-
-- Publicar agentes reutilizables en `.github` o `.github-private`.
-- Usar visibilidad interna; reservar la privada para guías sensibles.
-- Versionar cambios mediante PR, revisión de seguridad y changelog.
-
-### Adopción por repositorio
-
-- Consumir la línea base sin copiarla.
-- Permitir extensiones locales justificadas.
-- Registrar excepciones, dueños y fechas de vencimiento.
-
-[GitHub: Preparar agentes personalizados](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/prepare-for-custom-agents)
+- Propósito y alcance.
+- Dueño técnico y de negocio.
+- Herramientas permitidas.
+- Datos y entornos autorizados.
+- Versión y dependencias.
+- Fecha de revisión.
+- Plan de retiro.
 
 ---
 
-## Contrato mínimo de un perfil de agente
+## Perfil seguro de agente
 
-Todo agente publicado debe definir:
+### Reglas esenciales
 
-- **Propósito:** una responsabilidad concreta.
-- **Alcance:** repositorios, rutas, entornos y datos.
-- **Herramientas permitidas:** las mínimas; lectura como valor predeterminado.
-- **Acciones prohibidas:** secretos, producción, comandos destructivos y comunicaciones no aprobadas.
-- **Flujo:** inspeccionar → planificar → implementar → probar → revisar → informar.
-- **Puertas de aprobación:** acciones que requieren una persona autorizada.
-- **Salida:** archivos, pruebas, herramientas, riesgos y pendientes.
-- **Ciclo de vida:** versión, dueño, soporte, revisión y retiro.
+- Una responsabilidad concreta.
+- Herramientas mínimas.
+- Lectura como valor predeterminado.
+- Acciones prohibidas explícitas.
+- Flujo de trabajo reproducible.
+- Salida y evidencia estandarizadas.
+- Puertas de aprobación definidas.
 
-**Regla:** un perfil de agente es configuración productiva; revísalo como código.
-
----
-
-## Incorporación segura del agente local
-
-1. Autenticar con el proveedor de identidad y controles de postura del equipo.
-2. Instalar solo IDE, CLI, runtime y extensiones aprobados.
-3. Obtener perfiles desde el catálogo organizacional o empresarial.
-4. Aplicar instrucciones del repositorio y reglas por ruta.
-5. Usar credenciales temporales y acotadas desde un gestor de secretos.
-6. Bloquear secretos y datos productivos del contexto.
-7. Ejecutar escaneo de secretos, lint, pruebas, dependencias y políticas.
-8. Registrar agente, versión, repositorio, herramientas y aprobaciones en el PR.
-
-**Nunca:** pegar credenciales, datos de clientes, llaves privadas, tokens o cadenas de conexión.
+**El perfil es configuración productiva: debe revisarse como código.**
 
 ---
 
-## Gobierno MCP: registro central, ejecución local
+## Incorporación segura: identidad
 
-El registro MCP es la fuente de verdad:
+Antes de habilitar un agente local:
 
-- Identidad, dueño, propósito, versión, clasificación y entornos.
-- Herramientas permitidas individualmente; lectura primero.
-- Secretos administrados o referencias de entorno; nunca valores en Git.
-- Egreso de red, timeouts, límites, redacción y logs.
-- Separación entre desarrollo, pruebas, staging y producción.
-- Aprobación humana para escrituras, acciones destructivas, migraciones y producción.
-- Nueva revisión ante cambios de proveedor, versión, permisos o clasificación.
-
-Con **Registry only**, los servidores MCP locales deben usar el ID exacto registrado. Persisten limitaciones de enforcement; se necesitan controles de endpoint y configuración.
-
-[GitHub: Uso empresarial de servidores MCP](https://docs.github.com/en/copilot/concepts/mcp-management)  
-[GitHub: Enforcement de listas MCP](https://docs.github.com/en/copilot/reference/mcp-allowlist-enforcement)
+1. Autenticar con la identidad institucional.
+2. Validar postura y cumplimiento del equipo.
+3. Usar IDE, CLI y extensiones aprobados.
+4. Aplicar políticas empresariales y del repositorio.
+5. Mantener credenciales temporales y acotadas.
 
 ---
 
-## Modelo de permisos: leer antes de actuar
+## Incorporación segura: contexto
 
-| Nivel | Ejemplos | Tratamiento |
+- Excluir secretos y llaves privadas.
+- No incluir datos reales de clientes.
+- Preferir datos sintéticos o enmascarados.
+- Tratar tickets, páginas web e issues como datos no confiables.
+- Evitar repetir tokens, cookies o headers.
+- Definir retención y residencia de datos.
+
+---
+
+## Incorporación segura: validación
+
+Antes del commit o PR:
+
+- Escaneo de secretos.
+- Lint y formato.
+- Pruebas automatizadas.
+- Revisión de dependencias.
+- Validación de políticas.
+- Revisión humana del cambio.
+
+**La velocidad no reemplaza los controles de calidad.**
+
+---
+
+## MCP: registro central
+
+El registro MCP debe documentar:
+
+- Identidad y versión del servidor.
+- Propósito y dueño.
+- Herramientas permitidas.
+- Clasificación de datos.
+- Entornos autorizados.
+- Autenticación y secretos.
+- Logs, límites y revisión.
+
+---
+
+## MCP: reglas de uso
+
+- Permitir solo servidores registrados.
+- Permitir herramientas individualmente.
+- Preferir operaciones de lectura.
+- Separar desarrollo, pruebas y producción.
+- Redactar datos sensibles.
+- Aplicar timeouts y límites de red.
+- Revisar cualquier cambio de permisos.
+
+[GitHub: Uso empresarial de servidores MCP](https://docs.github.com/en/copilot/concepts/mcp-management)
+
+---
+
+## Separar leer de actuar
+
+| Nivel | Ejemplo | Control |
 | --- | --- | --- |
-| 0 — Observar | Metadatos, documentación, datos sintéticos | Permitir y registrar |
-| 1 — Preparar | Código, pruebas, consultas o borradores de PR | Permitir; validar antes de fusionar |
-| 2 — Cambiar | Commits, PR y sistemas no productivos | Aprobación humana y protección de ramas |
-| 3 — Impactar | Producción, datos, migraciones o comunicaciones | Doble aprobación y registro de cambio |
-| Prohibido | Obtener credenciales, acceso productivo irrestricto o evadir controles | Denegar y alertar |
-
-**El mínimo privilegio debe revisarse durante todo el ciclo de vida.**
+| Observar | Leer documentación | Permitir y registrar |
+| Preparar | Crear código o borradores | Validar antes de fusionar |
+| Cambiar | Commit o PR | Aprobación humana |
+| Impactar | Producción o datos | Doble aprobación |
+| Prohibido | Obtener credenciales | Denegar y alertar |
 
 ---
 
-## Protección de datos y límites de contexto
+## Acciones que requieren aprobación
 
-### Clasificar antes de conectar
+Exigir aprobación humana para:
 
-- **Público:** contexto externo aprobado.
-- **Interno:** servicios y repositorios institucionales.
-- **Confidencial:** minimizar, redactar y restringir por rol.
-- **Regulado o cliente:** flujo aislado y autorización explícita.
+- Cambios productivos.
+- Migraciones o mutaciones de datos.
+- Comandos destructivos.
+- Despliegues.
+- Comunicaciones externas.
+- Cambios de permisos.
+- Acceso a información regulada.
 
-### Defensa en profundidad
-
-- Excluir secretos, llaves, configuraciones sensibles y fixtures reales.
-- Usar datos sintéticos o enmascarados.
-- Tratar tickets, issues, páginas web y documentación externa como datos no confiables.
-- Evitar que el agente repita headers, cookies, tokens o datos personales.
-- Definir retención, residencia y eliminación de prompts, trazas y logs.
-
-[OWASP: Top 10 para aplicaciones LLM](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+**Toda acción irreversible debe tener un responsable identificable.**
 
 ---
 
-## Controles obligatorios del repositorio
+## Controles del repositorio
 
-Cada repositorio institucional debe incluir o heredar:
+Cada repositorio institucional debe implementar:
 
-- `.github/copilot-instructions.md` con reglas obligatorias.
-- Instrucciones específicas para componentes sensibles.
-- Solo agentes y skills aprobados.
-- MCP limitado a servidores registrados.
-- Protección de ramas y revisiones requeridas.
+- `.github/copilot-instructions.md`.
+- Instrucciones por ruta sensible.
+- Agentes y skills aprobados.
+- MCP limitado al registro central.
+- Protección de ramas.
+- CODEOWNERS.
 - Secret scanning y push protection.
-- Code scanning, revisión de dependencias y lockfiles.
-- CODEOWNERS para seguridad, plataforma y datos.
-- Plantilla de PR con uso de agentes y MCP.
-
-Referencia del repositorio: [`docs/agent-ecosystem.md`](../agent-ecosystem.md), [`mcp/README.md`](../../mcp/README.md) y [`mcp/policies/approved-tools.md`](../../mcp/policies/approved-tools.md).
+- Code scanning y revisión de dependencias.
 
 ---
 
-## Evidencia mínima en cada pull request
+## Evidencia en el pull request
 
-El PR debe responder:
+El PR debe indicar:
 
-- ¿Qué agente y versión se utilizaron?
-- ¿Qué política empresarial u organizacional estaba activa?
-- ¿Qué servidores MCP y herramientas se invocaron?
-- ¿Se ejecutaron herramientas de escritura o producción?
-- ¿Quién aprobó las acciones elevadas?
-- ¿Qué clasificación de datos entró al contexto?
-- ¿Qué pruebas, escaneos y políticas pasaron?
-- ¿Qué riesgos o limitaciones permanecen?
+- Agente y versión utilizados.
+- Políticas activas.
+- Servidores MCP y herramientas invocadas.
+- Acciones de escritura ejecutadas.
+- Aprobadores de acciones elevadas.
+- Clasificación de datos utilizada.
+- Pruebas y escaneos ejecutados.
+- Riesgos y pendientes.
 
-**Sin reconstrucción de la actividad no existe gobierno confiable.**
+**Sin evidencia no existe gobierno confiable.**
 
 ---
 
-## Ciclo de vida y responsabilidades
+## Ciclo de vida
 
 ```text
-Proponer → Modelar amenazas → Revisar → Pilotear
-   → Publicar → Monitorear → Recertificar → Actualizar o retirar
+Proponer
+   ↓
+Modelar amenazas
+   ↓
+Revisar y pilotear
+   ↓
+Publicar
+   ↓
+Monitorear y recertificar
+   ↓
+Actualizar o retirar
 ```
 
-Controles mínimos:
-
-- Dueño técnico y de negocio.
-- Perfil y manifiesto MCP versionados.
-- Pruebas de comportamiento permitido y prohibido.
-- Revisión trimestral y ante cambios materiales.
-- Métricas de uso, excepciones e incidentes.
-- Revocación inmediata ante compromiso.
-- Plan de retiro para agentes sin soporte.
-
-Desplegar progresivamente: piloto → repositorios de bajo riesgo → expansión → cargas reguladas.
+Revisar al menos trimestralmente o ante cambios materiales.
 
 ---
 
-## Hoja de ruta para el banco
+## Revocación e incidentes
 
-| Fase | Entregables | Criterio de salida |
-| --- | --- | --- |
-| 1. Base | Dueños, riesgos, reglas e inventario | Responsabilidades y prohibiciones documentadas |
-| 2. Catálogo | Agentes, MCP, versiones y revisiones | Capacidades aprobadas descubribles |
-| 3. Barreras | Identidad, endpoint, secretos y contexto | Configuraciones inseguras bloqueadas o detectadas |
-| 4. Repositorios | Ramas, scans, CODEOWNERS y plantilla PR | Cambios con controles normales |
-| 5. Observabilidad | Auditoría, métricas, excepciones e incidentes | Actividad reconstruible |
-| 6. Escala | Activación por organización y riesgo | Adopción sin expansión de permisos |
+Debe existir un mecanismo rápido para:
+
+- Deshabilitar un agente.
+- Revocar credenciales.
+- Retirar un servidor MCP.
+- Bloquear una herramienta.
+- Notificar a los dueños.
+- Preservar evidencia.
+- Analizar el alcance del incidente.
+
+**La capacidad debe ser revocable, no permanente.**
 
 ---
 
-## Métricas de gobierno
+## Hoja de ruta
 
-### Adopción
+| Fase | Resultado |
+| --- | --- |
+| 1. Base | Dueños, riesgos y reglas |
+| 2. Catálogo | Agentes y MCP aprobados |
+| 3. Barreras | Identidad, endpoint y secretos |
+| 4. Repositorios | Ramas, scans y CODEOWNERS |
+| 5. Observabilidad | Auditoría e incidentes |
+| 6. Escala | Activación por riesgo |
+
+---
+
+## Métricas de adopción
 
 - Repositorios con la línea base aprobada.
 - Agentes activos provenientes del catálogo.
 - Tiempo desde aprobación hasta disponibilidad.
-
-### Seguridad
-
-- Agentes o MCP locales no aprobados detectados.
-- Secretos bloqueados por push protection.
 - PR con evidencia completa.
+- Uso de agentes por área y riesgo.
+
+---
+
+## Métricas de seguridad
+
+- Agentes o MCP no aprobados detectados.
+- Secretos bloqueados.
 - Excepciones vencidas.
-- Herramientas fuera de fecha de revisión.
-- Acciones de alto riesgo aprobadas versus intentos de bypass.
-
-### Calidad y resiliencia
-
-- Hallazgos por cambio asistido por agente.
-- Tiempo para revocar o remediar una capacidad comprometida.
-- Fallos repetidos de políticas.
-- Disponibilidad, latencia y errores del agente.
-
-**Medir productividad gobernada, no solo automatización.**
+- Herramientas fuera de revisión.
+- Intentos de bypass.
+- Tiempo para revocar una capacidad comprometida.
 
 ---
 
@@ -281,16 +309,14 @@ Desplegar progresivamente: piloto → repositorios de bajo riesgo → expansión
 
 Antes de habilitar un agente local:
 
-- [ ] Dueño, propósito, alcance y riesgo documentados.
-- [ ] Perfil central aprobado o excepción vigente.
-- [ ] Herramientas y MCP incluidos en listas permitidas.
+- [ ] Dueño y propósito documentados.
+- [ ] Riesgo y alcance definidos.
+- [ ] Perfil y herramientas aprobados.
 - [ ] Lectura como valor predeterminado.
-- [ ] Secretos gestionados; nunca valores en código.
-- [ ] Datos sensibles excluidos, enmascarados o aislados.
-- [ ] Aprobaciones para producción y acciones destructivas.
-- [ ] Pruebas, scans y protección de ramas activos.
-- [ ] Logs y evidencia del PR retenidos correctamente.
-- [ ] Fechas de revisión, revocación y retiro definidas.
+- [ ] Secretos gestionados externamente.
+- [ ] Datos sensibles excluidos o aislados.
+- [ ] Aprobaciones de alto impacto configuradas.
+- [ ] Auditoría, revisión y retiro definidos.
 
 ---
 
@@ -298,24 +324,22 @@ Antes de habilitar un agente local:
 
 ## Hacer que el camino seguro sea el más fácil
 
-- **Centralizar** perfiles, registros, políticas y responsables.
-- **Localizar** la ejecución donde se necesita velocidad.
-- **Restringir** herramientas, datos, redes y credenciales.
-- **Verificar** con controles deterministas de ingeniería y seguridad.
-- **Exigir personas** para decisiones irreversibles o de alto impacto.
-- **Medir y recertificar** continuamente.
+> Cada agente local debe estar **aprobado, limitado, observable y revocable**.
 
-> La pregunta no es si se permiten agentes locales, sino si cada uno está **aprobado, limitado, observable y revocable**.
+- Políticas centralizadas.
+- Ejecución local controlada.
+- Herramientas con mínimo privilegio.
+- Datos protegidos.
+- Validación determinista.
+- Responsabilidad humana.
 
 ---
 
 ## Referencias
 
 - [GitHub — Gestión empresarial de agentes](https://docs.github.com/en/copilot/concepts/agents/enterprise-management)
-- [GitHub — Preparar agentes personalizados](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/administer-copilot/manage-for-organization/prepare-for-custom-agents)
 - [GitHub — Agentes personalizados](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/agents/copilot-cli/about-custom-agents)
 - [GitHub — Uso empresarial de servidores MCP](https://docs.github.com/en/copilot/concepts/mcp-management)
-- [GitHub — Configurar acceso a MCP](https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-mcp-usage/configure-mcp-server-access)
 - [GitHub — Enforcement de listas MCP](https://docs.github.com/en/copilot/reference/mcp-allowlist-enforcement)
 - [NIST — Marco de gestión de riesgos de IA](https://www.nist.gov/itl/ai-risk-management-framework)
 - [OWASP — Top 10 para aplicaciones LLM](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
