@@ -1,26 +1,14 @@
 # Usar Copilot para acelerar el modelado en BigQuery
 
-> **Formato:** presentación ejecutiva/técnica lista para convertir a PowerPoint. Cada sección representa una diapositiva. Mantener entre 3 y 6 viñetas visibles por diapositiva; usar las notas del presentador para ampliar el contenido.
-
----
-
 ## Título
-
-# Usar Copilot para acelerar el modelado en BigQuery
 
 ### Artefactos de modelado, mapeos de campos y esquemas tipados
 
 **Mensaje clave:** acelerar la primera versión sin delegar las decisiones de negocio, seguridad o despliegue.
 
-**Notas del presentador:**
-- Copilot ayuda a transformar metadatos y reglas explícitas en artefactos revisables.
-- El resultado generado es un borrador: la aprobación humana sigue siendo obligatoria.
-
 ---
 
 ## Objetivos
-
-Al finalizar, el equipo podrá:
 
 - Definir un contrato de modelado antes de generar SQL.
 - Crear mapeos origen-destino trazables.
@@ -32,36 +20,33 @@ Al finalizar, el equipo podrá:
 
 ## Principio de trabajo
 
-## Copilot acelera la ejecución; las personas gobiernan las decisiones
+### Copilot acelera la ejecución; las personas gobiernan las decisiones
 
-### Copilot puede ayudar a:
-
-- Crear primeros borradores de modelos, mapeos y esquemas.
-- Detectar inconsistencias entre artefactos.
-- Proponer validaciones, documentación y casos de prueba.
-- Identificar campos sensibles y preguntas abiertas.
-
-### Copilot no debe:
-
-- Inventar definiciones de negocio.
-- Aprobar accesos a datos sensibles.
-- Ejecutar cambios productivos sin aprobación explícita.
-
-> Tratar SQL, mapeos, esquemas y metadatos de gobierno como borradores sujetos a revisión.
+- Copilot crea borradores y detecta inconsistencias.
+- Puede proponer validaciones, documentación y pruebas.
+- Puede identificar campos sensibles y preguntas abiertas.
+- No debe inventar definiciones de negocio.
+- No debe aprobar accesos ni ejecutar cambios productivos sin autorización.
 
 ---
 
-## ¿Qué artefactos se pueden acelerar?
+## Artefactos que se pueden acelerar
 
-- Notas de modelos conceptuales y lógicos.
-- Tablas de mapeo origen-destino.
+- Modelos conceptuales y lógicos.
+- Mapeos origen-destino.
 - Sentencias `CREATE TABLE` y `CREATE VIEW`.
-- Esquemas JSON para `bq`, APIs y procesos de ingesta.
-- Modelos tipados en TypeScript o C#.
-- Consultas de validación y controles de calidad.
-- Sugerencias de particionamiento, clustering y nombres.
-- Inventarios de campos sensibles y etiquetas de políticas.
-- Casos de prueba y listas de verificación para pull requests.
+- Esquemas JSON y modelos tipados.
+- Consultas de validación y pruebas de calidad.
+
+---
+
+## Artefactos adicionales
+
+- Sugerencias de particionamiento y clustering.
+- Inventarios de campos sensibles.
+- Candidatos para etiquetas de políticas.
+- Notas de migración y backfill.
+- Checklists para pull requests.
 
 ---
 
@@ -74,57 +59,57 @@ bigquery/
 │   ├── intermediate/
 │   └── marts/
 ├── mappings/
-│   └── customer.yml
 ├── schemas/
-│   ├── customer.json
-│   └── customer.ts
-├── tests/
-│   └── customer_quality.sql
-└── README.md
+└── tests/
 ```
 
-### Recomendaciones
-
-- Versionar los artefactos junto con el código.
+- Versionar artefactos junto con el código.
 - Mantener cada cambio acotado a un modelo o producto de datos.
 - Respetar las convenciones existentes del repositorio.
 
 ---
 
-## Flujo de trabajo de extremo a extremo
+## Flujo de trabajo
 
-1. **Definir** el contrato de modelado.
-2. **Mapear** los campos origen-destino.
-3. **Tipar** el esquema de BigQuery y los consumidores.
-4. **Generar** el artefacto SQL.
-5. **Revisar** diseño, seguridad y costos.
-6. **Validar** sintaxis, calidad y consistencia.
-7. **Aprobar y desplegar** mediante el flujo normal de pull request.
-
-### Regla
-
-Generar un artefacto por vez y comparar cada resultado con la fuente aprobada.
+1. Definir el contrato de modelado.
+2. Mapear los campos origen-destino.
+3. Generar esquemas tipados.
+4. Crear el modelo SQL.
+5. Revisar diseño, seguridad y costos.
+6. Validar y probar.
+7. Aprobar mediante pull request.
 
 ---
 
-## Paso 1: contrato de modelado
+## Contrato de modelado: información mínima
 
-Antes de solicitar SQL, documentar:
-
-- Granularidad: una fila por cliente, cuenta, transacción o evento.
+- Granularidad del modelo.
 - Tablas origen y columnas relevantes.
 - Campos obligatorios y opcionales.
 - Convenciones de nombres.
-- Zona horaria y reglas para timestamps.
 - Claves y reglas de unicidad.
-- Nulos, valores por defecto y datos tardíos.
+- Reglas para nulos y valores por defecto.
+
+---
+
+## Contrato de modelado: operación y gobierno
+
+- Zona horaria y reglas para timestamps.
+- Datos tardíos y estrategia de reprocesamiento.
 - Particionamiento y clustering.
 - Clasificación de PII y datos confidenciales.
-- Consumidores esperados y objetivo de frescura.
+- Consumidores y objetivo de frescura.
+- Preguntas abiertas y responsables.
 
-### Seguridad
+---
 
-Usar placeholders para proyectos, datasets, credenciales y valores sensibles. Nunca pegar secretos, tokens, cadenas de conexión o registros productivos innecesarios.
+## Seguridad durante el prompting
+
+- Usar placeholders para proyectos y datasets.
+- Nunca pegar secretos, tokens o cadenas de conexión.
+- Evitar registros productivos innecesarios.
+- Redactar datos personales antes de compartir contexto.
+- Usar variables de entorno o secretos administrados.
 
 ---
 
@@ -141,35 +126,37 @@ Reglas: usar timestamps UTC, preservar identificadores origen,
 no inventar mapeos, identificar ambigüedades como PREGUNTAS ABIERTAS
 y clasificar campos sensibles.
 
-Devuelve: granularidad y claves, supuestos, definiciones por campo,
+Devuelve granularidad, claves, supuestos, definiciones,
 preguntas pendientes y pruebas propuestas.
 ```
 
-### Resultado esperado
-
-Un contrato revisable antes de implementar transformaciones.
-
 ---
 
-## Paso 2: mapeo origen-destino
+## Mapeo origen-destino
 
-Solicitar el mapeo antes del SQL para separar decisiones de negocio de detalles de implementación.
+Solicitar el mapeo antes del SQL para separar decisiones de negocio de implementación.
 
-### Cada registro debe incluir
+Cada registro debe incluir:
 
 - Tabla y campo origen.
 - Modelo y campo destino.
 - Transformación.
 - Tipo y modo de BigQuery.
 - Nulabilidad.
+
+---
+
+## Mapeo: trazabilidad y calidad
+
+Cada registro también debe incluir:
+
 - Regla de calidad.
 - Clasificación de sensibilidad.
 - Nivel de confianza.
+- Estado del linaje.
 - Responsable o pregunta pendiente.
 
-### Beneficio
-
-La trazabilidad facilita la revisión, el mantenimiento y el análisis de impacto.
+La trazabilidad facilita revisión, mantenimiento y análisis de impacto.
 
 ---
 
@@ -180,7 +167,7 @@ La trazabilidad facilita la revisión, el mantenimiento y el análisis de impact
   type: STRING
   mode: REQUIRED
   source: [raw.crm_customer.customer_id, raw.core_party.party_id]
-  transformation: "Normalizar el identificador maestro según la regla aprobada."
+  transformation: "Normalizar según la regla aprobada."
   lineage_status: confirmed
   sensitivity: internal
   quality_rules:
@@ -188,36 +175,40 @@ La trazabilidad facilita la revisión, el mantenimiento y el análisis de impact
     - unique
 ```
 
-### Regla de gobierno
-
-Copilot no debe inventar la regla de resolución de identidades. La debe proporcionar y aprobar el responsable de negocio o de datos.
+**Regla:** Copilot no debe inventar la resolución de identidades.
 
 ---
 
-## Paso 3: esquema tipado
+## Esquema tipado
 
 Generar dos artefactos sincronizados:
 
-1. **Esquema de despliegue:** JSON para `bq` o la API de BigQuery.
-2. **Modelo de consumo:** interfaz TypeScript o tipo C#.
+1. Esquema JSON para `bq` o la API de BigQuery.
+2. Modelo de consumo en TypeScript o C#.
 
-### Requisitos
+Requisitos:
 
-- Conservar nombres, descripciones, modos y estructuras anidadas.
-- Representar explícitamente los campos anulables.
-- Usar timestamps UTC en las fronteras del sistema.
-- No cambiar tipos para ocultar datos inválidos.
-- Reportar cualquier conversión con pérdida de información.
+- Conservar nombres, descripciones y modos.
+- Representar campos anulables explícitamente.
+- Conservar estructuras anidadas.
+- Usar timestamps UTC.
+- Reportar conversiones con pérdida de información.
 
 ---
 
-## Tipos y representación
+## Tipos de BigQuery
 
-BigQuery incluye tipos como:
+`STRING` · `INT64` · `NUMERIC` · `BOOL` · `DATE`
 
-`STRING` · `INT64` · `NUMERIC` · `BOOL` · `DATE` · `DATETIME` · `TIMESTAMP` · `GEOGRAPHY` · `JSON` · `ARRAY` · `STRUCT`
+`DATETIME` · `TIMESTAMP` · `GEOGRAPHY` · `JSON`
 
-### Ejemplo de consumidor TypeScript
+`ARRAY` · `STRUCT`
+
+Validar los tipos con la [referencia oficial de tipos de datos de BigQuery](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types).
+
+---
+
+## Modelo tipado para consumidores
 
 ```typescript
 export interface Customer {
@@ -229,80 +220,84 @@ export interface Customer {
 }
 ```
 
-### Para consumidores C#
+Para C#:
 
 - Usar tipos de referencia anulables.
 - Usar `DateTimeOffset` para instantes UTC.
 - Incluir documentación XML en miembros públicos.
-- Mantener las credenciales fuera del código.
+- Mantener credenciales fuera del código.
 
 ---
 
-## Paso 4: modelo SQL
-
-Solicitar el modelo después de revisar el mapeo y el esquema.
-
-### Reglas recomendadas
+## Modelo SQL: reglas principales
 
 - Usar BigQuery GoogleSQL.
 - Mantener la granularidad declarada.
-- Usar listas explícitas de columnas; nunca `SELECT *`.
+- Usar columnas explícitas; nunca `SELECT *`.
 - Conservar la trazabilidad en comentarios SQL.
 - Aplicar conversiones explícitas.
-- Usar `SAFE_CAST` solo cuando esté autorizado por el mapeo.
+
+---
+
+## Modelo SQL: comportamiento y costos
+
+- Usar `SAFE_CAST` solo si el mapeo lo autoriza.
 - Normalizar timestamps a UTC.
-- Hacer determinista el tratamiento de duplicados y nulos.
-- Justificar particionamiento y clustering según los patrones de consulta.
-- Evitar identificadores específicos de proyectos en artefactos reutilizables.
+- Resolver duplicados y nulos de forma determinista.
+- Justificar particionamiento y clustering.
+- Evitar identificadores específicos de proyectos.
 
 ---
 
 ## Modelos incrementales
 
-Para un modelo incremental, especificar antes de generar:
+Definir antes de generar:
 
 - Marca de agua o watermark.
 - Estrategia de actualización.
 - Clave de deduplicación.
 - Ventana de reprocesamiento.
 - Política para datos tardíos.
-- Comportamiento de backfill y replay.
+- Backfill y replay.
 
-### Si falta una decisión
-
-Copilot debe generar una **PREGUNTA ABIERTA**, no asumir silenciosamente una regla.
+Si falta una decisión, generar una **PREGUNTA ABIERTA**.
 
 ---
 
 ## Revisión del diseño
 
-Solicitar una revisión separada de la generación de código.
+Evaluar por separado de la generación de código:
 
-### Aspectos a evaluar
-
-- Corrección de granularidad y claves.
-- Dimensiones estables, rápidamente cambiantes o historizadas.
+- Granularidad y claves.
+- Dimensiones estables, cambiantes o historizadas.
 - Medidas aditivas, semi-aditivas o no aditivas.
 - Cardinalidad de joins y riesgo de fan-out.
-- Particionamiento y clustering.
-- Costo y volumen de datos escaneados.
-- Backfill, replay y datos tardíos.
-- Zonas horarias y calendarios.
 - Compatibilidad con consumidores tipados.
 
-> No pedir que el modelo sea “óptimo” sin proporcionar patrones de consulta, volumen, frescura y objetivos de costo.
+---
+
+## Revisión de costos y operación
+
+- Particionamiento y clustering.
+- Volumen de datos escaneados.
+- Frescura y latencia.
+- Backfill y replay.
+- Zonas horarias y calendarios.
+- Patrones de consulta.
+
+No solicitar un modelo “óptimo” sin proporcionar estos datos.
 
 ---
 
 ## Ciclo de validación
 
-1. **Generar:** un artefacto por solicitud.
-2. **Inspeccionar:** nombres, granularidad, tipos, nulos, linaje y seguridad.
-3. **Validar:** sintaxis y dry run fuera de producción.
-4. **Probar:** unicidad, nulos, valores aceptados, relaciones y conteos.
-5. **Comparar:** SQL contra esquema y mapeo.
-6. **Resolver:** todas las preguntas abiertas con los responsables.
-7. **Desplegar:** mediante pull request y aprobaciones establecidas.
+1. Generar un artefacto por solicitud.
+2. Inspeccionar nombres, tipos, nulos y linaje.
+3. Validar sintaxis y dry run fuera de producción.
+4. Probar calidad y relaciones.
+5. Comparar SQL, esquema y mapeo.
+6. Resolver preguntas abiertas.
+7. Desplegar mediante pull request.
 
 ---
 
@@ -316,8 +311,12 @@ Lista cada diferencia por campo. No modifiques archivos.
 ```text
 Revisa pérdida silenciosa de datos, nulos inesperados,
 reducción de tipos, fan-out, claves duplicadas y errores de zona horaria.
-Indica la columna exacta y recomienda una prueba para cada problema.
+Indica la columna y recomienda una prueba para cada problema.
 ```
+
+---
+
+## Prompt de validación segura
 
 ```text
 Genera únicamente consultas de validación para BigQuery.
@@ -326,59 +325,54 @@ No generes SQL destructivo, DDL, credenciales ni comandos de producción.
 
 ---
 
-## Ejercicio 1: contrato de modelado
+## Ejercicio: contrato de modelado
 
 ### Objetivo
 
-Definir el contrato para una dimensión `customer` sin escribir SQL.
+Definir el contrato para `customer` sin escribir SQL.
 
-### Datos de entrada ficticios
+### Datos ficticios
 
-- `raw.crm_customer.customer_id`: identificador del CRM.
-- `raw.crm_customer.email`: correo electrónico.
-- `raw.crm_customer.status`: estado del cliente.
-- `raw.crm_customer.created_at`: fecha de creación local.
-- `raw.core_party.party_id`: identificador maestro.
-- `raw.core_party.country_code`: país de residencia.
+- `raw.crm_customer.customer_id`
+- `raw.crm_customer.email`
+- `raw.crm_customer.status`
+- `raw.crm_customer.created_at`
+- `raw.core_party.party_id`
+- `raw.core_party.country_code`
 
-### Actividad — 10 minutos
-
-1. Identificar la granularidad y la clave de negocio.
-2. Clasificar cada campo como obligatorio u opcional.
-3. Documentar reglas de zona horaria, unicidad y nulos.
-4. Marcar al menos tres **PREGUNTAS ABIERTAS**.
-5. Pedir a Copilot un contrato de modelado.
-
-### Prompt sugerido
-
-```text
-Crea un contrato de modelado para dim_customer usando únicamente
-los metadatos proporcionados. No inventes reglas de identidad.
-Marca las ambigüedades como PREGUNTAS ABIERTAS y clasifica los campos sensibles.
-```
-
-### Entregable y criterio de éxito
-
-- Entregable: `customer-contract.md`.
-- Éxito: el contrato declara granularidad, claves, tipos esperados, seguridad y preguntas pendientes.
+### Tiempo: 10 minutos
 
 ---
 
-## Ejercicio 2: mapeo origen-destino
+## Ejercicio: contrato de modelado — actividad
 
-### Objetivo
+1. Identificar granularidad y clave.
+2. Clasificar campos obligatorios y opcionales.
+3. Documentar zona horaria, unicidad y nulos.
+4. Marcar tres **PREGUNTAS ABIERTAS**.
+5. Pedir a Copilot el contrato.
 
-Crear un mapeo trazable a partir del contrato aprobado.
+**Entregable:** `customer-contract.md`.
+
+**Éxito:** declara granularidad, claves, tipos, seguridad y preguntas pendientes.
+
+---
+
+## Ejercicio: mapeo origen-destino
 
 ### Actividad — 12 minutos
 
 1. Crear `mappings/customer.yml`.
 2. Mapear `customer_key`, `email`, `status`, `created_at` y `country_code`.
-3. Añadir transformación, tipo, modo, nulabilidad y regla de calidad.
-4. Marcar como `inferred` cualquier transformación no confirmada.
-5. Solicitar a Copilot una comparación del mapeo contra el contrato.
+3. Añadir transformación, tipo, modo y nulabilidad.
+4. Añadir reglas de calidad y sensibilidad.
+5. Marcar inferencias como `inferred`.
 
-### Prompt sugerido
+**Entregable:** YAML válido y preguntas abiertas.
+
+---
+
+## Ejercicio: prompt de mapeo
 
 ```text
 Genera mappings/customer.yml a partir del contrato aprobado.
@@ -386,28 +380,25 @@ Conserva el linaje de cada campo, marca las inferencias,
 no resuelvas conflictos silenciosamente y devuelve las preguntas abiertas.
 ```
 
-### Entregable y criterio de éxito
-
-- Entregable: archivo YAML válido y lista de preguntas abiertas.
-- Éxito: cada campo destino tiene origen, transformación, tipo, calidad y sensibilidad.
+**Éxito:** cada campo destino tiene origen, transformación, tipo, calidad y sensibilidad.
 
 ---
 
-## Ejercicio 3: esquema BigQuery y modelo tipado
-
-### Objetivo
-
-Generar dos representaciones sincronizadas del mismo contrato.
+## Ejercicio: esquema y modelo tipado
 
 ### Actividad — 12 minutos
 
 1. Generar `schemas/customer.json`.
-2. Generar `schemas/customer.ts` o un modelo C# equivalente.
-3. Representar correctamente campos anulables y timestamps.
-4. Comparar nombre, tipo y nulabilidad entre ambos archivos.
-5. Pedir a Copilot que liste las diferencias sin modificar archivos.
+2. Generar `schemas/customer.ts` o un modelo C#.
+3. Representar campos anulables y timestamps.
+4. Comparar nombres, tipos y nulabilidad.
+5. Listar diferencias sin modificar archivos.
 
-### Prompt sugerido
+**Entregables:** esquema JSON y modelo tipado.
+
+---
+
+## Ejercicio: prompt de esquema
 
 ```text
 Genera un esquema JSON de BigQuery y un modelo tipado a partir de
@@ -415,88 +406,79 @@ mappings/customer.yml. Conserva nombres, modos, descripciones y anidamiento.
 Reporta cualquier conversión que pueda perder información.
 ```
 
-### Entregable y criterio de éxito
-
-- Entregables: JSON y modelo tipado.
-- Éxito: no existen discrepancias no justificadas entre los dos contratos.
+**Éxito:** no existen discrepancias no justificadas entre los contratos.
 
 ---
 
-## Ejercicio 4: modelo SQL y pruebas
-
-### Objetivo
-
-Crear una primera versión de `dim_customer` y sus controles de calidad.
+## Ejercicio: modelo SQL y pruebas
 
 ### Actividad — 15 minutos
 
 1. Generar `models/marts/dim_customer.sql`.
-2. Prohibir `SELECT *` y exigir columnas explícitas.
+2. Prohibir `SELECT *`.
 3. Resolver duplicados de forma determinista.
-4. Generar pruebas de no nulidad, unicidad, valores aceptados y conteos.
-5. Revisar el SQL buscando fan-out, conversiones inseguras y errores de zona horaria.
+4. Generar pruebas de nulos, unicidad y valores aceptados.
+5. Revisar fan-out, conversiones y zonas horarias.
 
-### Prompt sugerido
+**Entregables:** SQL y consultas de prueba.
+
+---
+
+## Ejercicio: prompt SQL
 
 ```text
-Genera el modelo dim_customer.sql y pruebas de calidad a partir del
-mapeo y esquema aprobados. Usa GoogleSQL, columnas explícitas,
+Genera dim_customer.sql y pruebas de calidad a partir del mapeo y
+esquema aprobados. Usa GoogleSQL, columnas explícitas,
 conversiones declaradas y comportamiento determinista para duplicados.
 No incluyas identificadores de proyecto ni comandos de despliegue.
 ```
 
-### Entregables y criterio de éxito
-
-- Entregables: SQL y consultas de prueba.
-- Éxito: el SQL conserva la granularidad y cada regla importante tiene una validación.
+**Éxito:** el SQL conserva la granularidad y cada regla importante tiene una validación.
 
 ---
 
-## Ejercicio 5: revisión de seguridad y costo
-
-### Objetivo
-
-Detectar riesgos antes de solicitar aprobación para despliegue.
+## Ejercicio: seguridad y costos
 
 ### Actividad — 10 minutos
 
-1. Clasificar `email` como dato sensible o restringido según la política local.
-2. Proponer una etiqueta de política sin inventar el identificador del recurso.
-3. Revisar si el modelo requiere seguridad a nivel de fila.
-4. Evaluar particionamiento, clustering y volumen estimado de lectura.
-5. Redactar tres riesgos y una acción para cada uno.
+1. Clasificar `email` según la política local.
+2. Proponer una etiqueta sin inventar el identificador del recurso.
+3. Revisar la necesidad de seguridad a nivel de fila.
+4. Evaluar particionamiento, clustering y volumen leído.
+5. Redactar tres riesgos y una acción por riesgo.
 
-### Prompt sugerido
+**Entregable:** `customer-review.md`.
+
+---
+
+## Ejercicio: prompt de seguridad
 
 ```text
 Revisa el modelo, mapeo y esquema para detectar riesgos de PII,
-acceso a columnas, filtros de filas, costo de consulta, particionamiento
-y clustering. No asignes etiquetas ni permisos reales. Devuelve riesgos,
-evidencia, responsable y acción recomendada.
+acceso a columnas, filtros de filas, costo de consulta,
+particionamiento y clustering. No asignes etiquetas ni permisos reales.
+Devuelve riesgos, evidencia, responsable y acción recomendada.
 ```
 
-### Entregable y criterio de éxito
-
-- Entregable: `customer-review.md`.
-- Éxito: cada riesgo incluye evidencia, propietario y decisión requerida.
+**Éxito:** cada riesgo incluye evidencia, propietario y decisión requerida.
 
 ---
 
-## Ejercicio 6: reconciliación y pull request
-
-### Objetivo
-
-Completar la revisión final como equipo multidisciplinario.
+## Ejercicio: reconciliación final
 
 ### Actividad — 10 minutos
 
-1. Comparar contrato, YAML, JSON, modelo SQL y pruebas.
-2. Resolver o asignar todas las preguntas abiertas.
+1. Comparar contrato, YAML, JSON, SQL y pruebas.
+2. Resolver o asignar preguntas abiertas.
 3. Completar la plantilla de pull request.
 4. Identificar qué generó Copilot y qué verificó una persona.
-5. Decidir si el cambio está listo, bloqueado o requiere más información.
+5. Decidir si el cambio está listo o bloqueado.
 
-### Prompt sugerido
+**Entregable:** matriz de reconciliación y resumen del pull request.
+
+---
+
+## Prompt de reconciliación
 
 ```text
 Compara todos los artefactos del modelo customer y genera una matriz
@@ -504,10 +486,7 @@ con: campo, diferencia, impacto, evidencia, responsable y estado.
 No modifiques archivos ni apruebes el despliegue.
 ```
 
-### Entregable y criterio de éxito
-
-- Entregable: matriz de reconciliación y resumen de pull request.
-- Éxito: no quedan diferencias críticas ni decisiones de seguridad sin responsable.
+**Éxito:** no quedan diferencias críticas ni decisiones de seguridad sin responsable.
 
 ---
 
@@ -522,30 +501,38 @@ No modifiques archivos ni apruebes el despliegue.
 - Movimiento entre proyectos o regiones.
 - Exposición de datos personales o confidenciales.
 
-### Controles BigQuery
-
-- Las etiquetas de políticas permiten control de acceso a nivel de columna.
-- La seguridad a nivel de fila restringe subconjuntos de registros.
-- Ambos controles deben alinearse con la clasificación y el modelo de acceso aprobado.
-
 Nunca incluir secretos, cadenas de conexión o datos productivos innecesarios en prompts o commits.
 
 ---
 
-## Criterios de finalización
+## Controles de acceso en BigQuery
 
-Un cambio está listo para revisión cuando:
+- Las etiquetas de políticas permiten control a nivel de columna.
+- La seguridad a nivel de fila restringe subconjuntos de registros.
+- Los controles deben alinearse con la clasificación aprobada.
+- Los responsables de datos y seguridad deben aprobar las reglas.
+
+Fuentes: [control a nivel de columna](https://cloud.google.com/bigquery/docs/column-level-security-intro) y [seguridad a nivel de fila](https://cloud.google.com/bigquery/docs/row-level-security-intro).
+
+---
+
+## Criterios de finalización
 
 - La granularidad y las claves están documentadas.
 - Cada campo tiene origen, transformación, tipo, nulabilidad y sensibilidad revisados.
 - SQL, mapeo y esquema tipado son consistentes.
 - Las ambigüedades están documentadas y asignadas.
 - Existen pruebas de calidad y regresión.
-- La sintaxis y el dry run se validaron fuera de producción.
-- Las decisiones de particionamiento y clustering están justificadas.
-- Seguridad y acceso fueron revisados por sus responsables.
+
+---
+
+## Criterios de finalización: seguridad y operación
+
+- Sintaxis y dry run validados fuera de producción.
+- Particionamiento y clustering justificados.
+- Seguridad y acceso revisados por sus responsables.
 - No hay secretos ni registros productivos innecesarios.
-- El pull request indica qué generó Copilot y qué verificó una persona.
+- El pull request identifica lo generado por Copilot y lo verificado por personas.
 
 ---
 
@@ -565,7 +552,13 @@ Un cambio está listo para revisión cuando:
 - Clave principal/de negocio:
 - Estrategia de actualización:
 - Particionamiento/clustering:
+```
 
+---
+
+## Plantilla de pull request: validación
+
+```markdown
 ### Validación
 - [ ] Sintaxis o dry run fuera de producción
 - [ ] SQL, esquema y mapeo comparados
@@ -584,12 +577,12 @@ seguridad, pruebas y seguridad del despliegue.
 
 ## Mensajes clave
 
-1. **Definir antes de generar:** el contrato evita supuestos ocultos.
-2. **Mapear antes de implementar:** la trazabilidad guía el SQL y el esquema.
-3. **Tipar de forma sincronizada:** BigQuery y las aplicaciones deben compartir el contrato.
-4. **Validar fuera de producción:** las pruebas protegen calidad y costos.
-5. **Practicar con datos ficticios:** los ejercicios permiten aprender sin exponer información real.
-6. **Mantener control humano:** negocio, datos y seguridad aprueban las decisiones críticas.
+1. Definir antes de generar.
+2. Mapear antes de implementar.
+3. Mantener sincronizados SQL, esquemas y mapeos.
+4. Validar fuera de producción.
+5. Practicar con datos ficticios.
+6. Mantener el control humano.
 
 ---
 
