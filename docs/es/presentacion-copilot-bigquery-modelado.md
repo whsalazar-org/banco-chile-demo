@@ -1,7 +1,5 @@
 # Usar Copilot para acelerar el modelado en BigQuery
 
-> **Formato:** presentación ejecutiva/técnica lista para convertir a PowerPoint. Cada sección `Diapositiva` representa una lámina. Mantener entre 3 y 6 viñetas visibles por diapositiva; usar las notas del presentador para ampliar el contenido.
-
 ---
 
 ## Diapositiva 1 — Título
