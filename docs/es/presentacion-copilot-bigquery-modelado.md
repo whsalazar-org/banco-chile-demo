@@ -4,7 +4,7 @@
 
 ---
 
-## Diapositiva 1 — Título
+## Título
 
 # Usar Copilot para acelerar el modelado en BigQuery
 
@@ -18,7 +18,7 @@
 
 ---
 
-## Diapositiva 2 — Objetivos
+## Objetivos
 
 Al finalizar, el equipo podrá:
 
@@ -30,7 +30,7 @@ Al finalizar, el equipo podrá:
 
 ---
 
-## Diapositiva 3 — Principio de trabajo
+## Principio de trabajo
 
 ## Copilot acelera la ejecución; las personas gobiernan las decisiones
 
@@ -51,7 +51,7 @@ Al finalizar, el equipo podrá:
 
 ---
 
-## Diapositiva 4 — ¿Qué artefactos se pueden acelerar?
+## ¿Qué artefactos se pueden acelerar?
 
 - Notas de modelos conceptuales y lógicos.
 - Tablas de mapeo origen-destino.
@@ -65,7 +65,7 @@ Al finalizar, el equipo podrá:
 
 ---
 
-## Diapositiva 5 — Estructura recomendada
+## Estructura recomendada
 
 ```text
 bigquery/
@@ -91,7 +91,7 @@ bigquery/
 
 ---
 
-## Diapositiva 6 — Flujo de trabajo de extremo a extremo
+## Flujo de trabajo de extremo a extremo
 
 1. **Definir** el contrato de modelado.
 2. **Mapear** los campos origen-destino.
@@ -107,7 +107,7 @@ Generar un artefacto por vez y comparar cada resultado con la fuente aprobada.
 
 ---
 
-## Diapositiva 7 — Paso 1: contrato de modelado
+## Paso 1: contrato de modelado
 
 Antes de solicitar SQL, documentar:
 
@@ -128,7 +128,7 @@ Usar placeholders para proyectos, datasets, credenciales y valores sensibles. Nu
 
 ---
 
-## Diapositiva 8 — Prompt: contrato de modelado
+## Prompt: contrato de modelado
 
 ```text
 Actúa como ingeniero senior de analítica. Crea un contrato de modelado
@@ -151,7 +151,7 @@ Un contrato revisable antes de implementar transformaciones.
 
 ---
 
-## Diapositiva 9 — Paso 2: mapeo origen-destino
+## Paso 2: mapeo origen-destino
 
 Solicitar el mapeo antes del SQL para separar decisiones de negocio de detalles de implementación.
 
@@ -173,7 +173,7 @@ La trazabilidad facilita la revisión, el mantenimiento y el análisis de impact
 
 ---
 
-## Diapositiva 10 — Ejemplo de mapeo
+## Ejemplo de mapeo
 
 ```yaml
 - target: customer_key
@@ -194,7 +194,7 @@ Copilot no debe inventar la regla de resolución de identidades. La debe proporc
 
 ---
 
-## Diapositiva 11 — Paso 3: esquema tipado
+## Paso 3: esquema tipado
 
 Generar dos artefactos sincronizados:
 
@@ -211,7 +211,7 @@ Generar dos artefactos sincronizados:
 
 ---
 
-## Diapositiva 12 — Tipos y representación
+## Tipos y representación
 
 BigQuery incluye tipos como:
 
@@ -238,7 +238,7 @@ export interface Customer {
 
 ---
 
-## Diapositiva 13 — Paso 4: modelo SQL
+## Paso 4: modelo SQL
 
 Solicitar el modelo después de revisar el mapeo y el esquema.
 
@@ -257,7 +257,7 @@ Solicitar el modelo después de revisar el mapeo y el esquema.
 
 ---
 
-## Diapositiva 14 — Modelos incrementales
+## Modelos incrementales
 
 Para un modelo incremental, especificar antes de generar:
 
@@ -274,7 +274,7 @@ Copilot debe generar una **PREGUNTA ABIERTA**, no asumir silenciosamente una reg
 
 ---
 
-## Diapositiva 15 — Revisión del diseño
+## Revisión del diseño
 
 Solicitar una revisión separada de la generación de código.
 
@@ -294,7 +294,7 @@ Solicitar una revisión separada de la generación de código.
 
 ---
 
-## Diapositiva 16 — Ciclo de validación
+## Ciclo de validación
 
 1. **Generar:** un artefacto por solicitud.
 2. **Inspeccionar:** nombres, granularidad, tipos, nulos, linaje y seguridad.
@@ -306,7 +306,7 @@ Solicitar una revisión separada de la generación de código.
 
 ---
 
-## Diapositiva 17 — Prompts de revisión
+## Prompts de revisión
 
 ```text
 Compara el SQL, el esquema JSON y el mapeo YAML.
@@ -326,7 +326,7 @@ No generes SQL destructivo, DDL, credenciales ni comandos de producción.
 
 ---
 
-## Diapositiva 18 — Ejercicio 1: contrato de modelado
+## Ejercicio 1: contrato de modelado
 
 ### Objetivo
 
@@ -364,7 +364,7 @@ Marca las ambigüedades como PREGUNTAS ABIERTAS y clasifica los campos sensibles
 
 ---
 
-## Diapositiva 19 — Ejercicio 2: mapeo origen-destino
+## Ejercicio 2: mapeo origen-destino
 
 ### Objetivo
 
@@ -393,7 +393,7 @@ no resuelvas conflictos silenciosamente y devuelve las preguntas abiertas.
 
 ---
 
-## Diapositiva 20 — Ejercicio 3: esquema BigQuery y modelo tipado
+## Ejercicio 3: esquema BigQuery y modelo tipado
 
 ### Objetivo
 
@@ -422,7 +422,7 @@ Reporta cualquier conversión que pueda perder información.
 
 ---
 
-## Diapositiva 21 — Ejercicio 4: modelo SQL y pruebas
+## Ejercicio 4: modelo SQL y pruebas
 
 ### Objetivo
 
@@ -452,7 +452,7 @@ No incluyas identificadores de proyecto ni comandos de despliegue.
 
 ---
 
-## Diapositiva 22 — Ejercicio 5: revisión de seguridad y costo
+## Ejercicio 5: revisión de seguridad y costo
 
 ### Objetivo
 
@@ -482,7 +482,7 @@ evidencia, responsable y acción recomendada.
 
 ---
 
-## Diapositiva 23 — Ejercicio 6: reconciliación y pull request
+## Ejercicio 6: reconciliación y pull request
 
 ### Objetivo
 
@@ -511,7 +511,7 @@ No modifiques archivos ni apruebes el despliegue.
 
 ---
 
-## Diapositiva 24 — Seguridad y gobierno
+## Seguridad y gobierno
 
 ### Revisión humana obligatoria
 
@@ -532,7 +532,7 @@ Nunca incluir secretos, cadenas de conexión o datos productivos innecesarios en
 
 ---
 
-## Diapositiva 25 — Criterios de finalización
+## Criterios de finalización
 
 Un cambio está listo para revisión cuando:
 
@@ -549,7 +549,7 @@ Un cambio está listo para revisión cuando:
 
 ---
 
-## Diapositiva 26 — Plantilla de pull request
+## Plantilla de pull request
 
 ```markdown
 ## Cambio de modelado BigQuery
@@ -582,7 +582,7 @@ seguridad, pruebas y seguridad del despliegue.
 
 ---
 
-## Diapositiva 27 — Mensajes clave
+## Mensajes clave
 
 1. **Definir antes de generar:** el contrato evita supuestos ocultos.
 2. **Mapear antes de implementar:** la trazabilidad guía el SQL y el esquema.
@@ -593,7 +593,7 @@ seguridad, pruebas y seguridad del despliegue.
 
 ---
 
-## Diapositiva 28 — Fuentes oficiales
+## Fuentes oficiales
 
 - [Ingeniería de prompts para GitHub Copilot](https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering)
 - [Personalizar Copilot para un proyecto](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-copilot-overview)
@@ -603,7 +603,7 @@ seguridad, pruebas y seguridad del despliegue.
 
 ### Nota de conversión
 
-- Usar los títulos de cada diapositiva como títulos de lámina.
+- Usar los títulos de cada sección como títulos de lámina.
 - Convertir los prompts y ejemplos en elementos visuales editables.
 - Mantener los enlaces como hipervínculos en las diapositivas.
 - Usar las actividades como diapositivas de taller o material complementario.
