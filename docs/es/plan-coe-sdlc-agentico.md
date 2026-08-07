@@ -1,332 +1,409 @@
-# Plan empresarial para implementar un Centro de Excelencia de SDLC agéntico
+# Plan empresarial para implementar un Centro de Excelencia de GitHub Copilot y un SDLC agéntico
 
-## 1. Misión
+## 1. Propósito y alcance
 
-Crear un **Centro de Excelencia (CoE)** que escale de forma segura los agentes de IA en todo el ciclo de vida del desarrollo de software: planificación, diseño, codificación, pruebas, seguridad, despliegue y operación, manteniendo la responsabilidad humana sobre las decisiones de negocio y producción.
+Crear un **Centro de Excelencia (CoE) de GitHub Copilot y desarrollo agéntico** que permita a la empresa adoptar Copilot de forma segura, medible y reutilizable en todo el ciclo de vida del desarrollo de software (SDLC).
 
-El CoE debe utilizar el ciclo de vida de gestión de riesgos de IA del NIST —**Gobernar, Mapear, Medir y Gestionar**— como base de gobernanza.
+El CoE cubrirá:
 
-## 2. Modelo operativo objetivo
+- Gobernanza empresarial, riesgos, privacidad, propiedad intelectual y cumplimiento.
+- Administración de GitHub Copilot, organizaciones, repositorios, políticas y acceso.
+- Estándares de desarrollo, arquitectura, calidad, seguridad y operaciones.
+- Instrucciones, prompts, skills, agentes personalizados y flujos de trabajo reutilizables.
+- Capacitación, certificación, soporte y gestión del cambio.
+- Evaluación de productividad, calidad, seguridad, costo y adopción.
+- Un **portal empresarial de activos Copilot**, inspirado en [awesome-copilot](https://github.com/github/awesome-copilot), donde los equipos puedan descubrir, reutilizar, proponer, revisar, versionar y retirar estándares empresariales.
 
-### Patrocinador ejecutivo
+El CoE debe utilizar el marco NIST AI RMF —[Gobernar, Mapear, Medir y Gestionar](https://www.nist.gov/itl/ai-risk-management-framework)— como estructura de gestión de riesgos.
 
-Designar a un ejecutivo responsable, idealmente el **CIO, CTO o Chief Digital Officer**, con autoridad transversal sobre:
+## 2. Resultados esperados
 
-- Ingeniería
-- Producto
-- Seguridad
-- Riesgo y cumplimiento
-- Legal y privacidad
-- Arquitectura
-- Experiencia del desarrollador
-- Operaciones
+Al finalizar el primer año, la empresa deberá contar con:
 
-### Equipo central del CoE
+1. Copilot habilitado mediante una configuración empresarial gobernada.
+2. Un catálogo de repositorios, dominios, modelos, agentes, skills, prompts e instrucciones aprobados.
+3. Un marco de desarrollo común para producir software con asistencia de IA.
+4. Controles técnicos que impidan el uso no autorizado de datos, herramientas y entornos.
+5. Evaluaciones reproducibles para aprobar, escalar o retirar activos Copilot.
+6. Un portal interno de autoservicio con contribución controlada y trazabilidad.
+7. Métricas que demuestren valor sin sacrificar calidad, seguridad, confiabilidad ni bienestar del desarrollador.
 
-Comenzar con un equipo reducido:
+## 3. Modelo operativo del CoE
 
-| Rol | Responsabilidad principal |
+### 3.1 Patrocinio y órganos de decisión
+
+El patrocinador debe ser el CIO, CTO o Chief Digital Officer. El CoE debe operar con tres órganos:
+
+| Órgano | Responsabilidad | Cadencia |
+|---|---|---|
+| Comité ejecutivo | Presupuesto, apetito de riesgo, prioridades y excepciones | Trimestral |
+| Consejo de estándares | Revisión técnica de frameworks, prompts, skills, instrucciones y agentes | Quincenal |
+| Comunidad de práctica | Casos de uso, aprendizaje, soporte y propuestas de mejora | Mensual |
+
+### 3.2 Equipo central
+
+| Rol | Responsabilidad |
 |---|---|
-| Director del CoE | Estrategia, presupuesto, adopción y reportes ejecutivos |
-| Product manager | Hoja de ruta y priorización de casos de uso del SDLC agéntico |
-| Arquitecto empresarial | Arquitectura de referencia y estándares de plataforma |
-| Líder de seguridad de IA | Modelado de amenazas, controles de acceso y permisos de agentes |
-| Líder de experiencia del desarrollador | Herramientas, plantillas, capacitación y adopción |
-| Líder de ingeniería de calidad | Automatización de pruebas y estándares de evaluación |
-| Representante legal/privacidad | Datos, propiedad intelectual, regulación y evaluación de proveedores |
-| Líder de gestión del cambio | Comunicaciones, capacitación y comunidad de práctica |
+| Director del CoE | Estrategia, presupuesto, riesgos y resultados |
+| Product manager | Roadmap, catálogo y priorización de capacidades |
+| Administrador Copilot/GitHub | Políticas, licencias, organizaciones, permisos y métricas |
+| Arquitecto empresarial | Arquitectura de referencia y patrones aprobados |
+| Líder de seguridad de IA | Amenazas, mínimo privilegio, secretos, datos y abuso de herramientas |
+| Líder de ingeniería de plataforma | Plantillas, CI/CD, entornos y automatización |
+| Líder de calidad | Pruebas, validación, evaluación y puertas de calidad |
+| Responsable de conocimiento | Portal, taxonomía, búsqueda, versionado y curación |
+| Legal, privacidad y cumplimiento | IP, datos personales, regulación y contratos |
+| Gestión del cambio | Capacitación, comunicaciones, adopción y certificación |
 
-Cada dominio de producto debe incorporar **referentes de IA** que apliquen localmente los estándares del CoE.
+Cada dominio debe designar un **AI/Copilot Champion** responsable de aplicar los estándares y devolver retroalimentación al CoE.
 
-## 3. Principios de gobernanza
+## 4. Gobernanza empresarial de Copilot
 
-Adoptar los siguientes principios como política empresarial:
+### 4.1 Política y clasificación de riesgo
 
-1. La responsabilidad humana sigue siendo obligatoria.
-2. Los agentes reciben acceso con el principio de mínimo privilegio.
-3. Ningún agente puede aprobar y desplegar de forma independiente cambios de alto riesgo en producción.
-4. Todas las acciones de los agentes deben ser atribuibles, registradas y auditables.
-5. Los datos sensibles y secretos no deben enviarse a modelos no aprobados.
-6. El código generado se considera no confiable hasta que sea revisado y probado.
-7. Las verificaciones de seguridad, privacidad, accesibilidad y cumplimiento siguen formando parte del SDLC.
-8. Los agentes deben evaluarse mediante resultados medibles, no por novedad.
-9. Los equipos pueden extender la plataforma solo dentro de controles aprobados.
-10. Las políticas deben versionarse y revisarse periódicamente para evitar desviaciones de gobernanza.
+Clasificar los casos de uso y activos en cinco niveles:
 
-## 4. Modelo de referencia del SDLC agéntico
+| Nivel | Ejemplo | Requisitos |
+|---|---|---|
+| 1 — Asistivo | Explicación de código, documentación y aprendizaje | Revisión del usuario y registro estándar |
+| 2 — Cambio acotado | Pruebas, refactorizaciones pequeñas y pull requests en borrador | Aislamiento, CI obligatorio y revisión humana |
+| 3 — Sensible | Sistemas con datos regulados o correcciones de seguridad | Aprobación de seguridad, datos restringidos y auditoría ampliada |
+| 4 — Alto impacto | Producción, pagos, identidad o decisiones de clientes | Autorización explícita, segregación de funciones y validación independiente |
+| 5 — Prohibido inicialmente | Despliegue irreversible no revisado o acceso ilimitado | No permitido durante la fase inicial |
 
-### Planificar
+### 4.2 Controles mínimos
 
-Los agentes pueden:
+- SSO, MFA, grupos empresariales y mínimo privilegio.
+- Separación entre usuarios, agentes, repositorios y entornos.
+- Revisión de proveedores, modelos, extensiones y servidores MCP.
+- Prohibición de secretos, credenciales y datos sensibles en prompts o archivos no autorizados.
+- Registro de usuario, agente, modelo, herramientas, cambios, aprobaciones y resultados.
+- Protección de ramas, CODEOWNERS y revisiones obligatorias.
+- Escaneo de secretos, dependencias, vulnerabilidades, licencia e infraestructura.
+- Proceso formal de excepciones, incidentes, suspensión y retiro.
+- Revisión trimestral de permisos y activos.
 
-- Convertir solicitudes de negocio en épicas, historias y criterios de aceptación.
-- Identificar dependencias y sistemas afectados.
-- Detectar requisitos duplicados o contradictorios.
-- Elaborar estimaciones y planes iniciales de implementación.
+Las exclusiones de contenido deben configurarse para impedir que Copilot acceda a archivos definidos por la empresa; deben documentarse sus limitaciones por superficie, especialmente para escenarios de agente. Consultar la [documentación oficial de exclusión de contenido](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/context/content-exclusion) antes de definir la política.
 
-**Control humano:** el product owner aprueba el alcance, la prioridad y los criterios de aceptación.
+### 4.3 RACI de decisiones
 
-### Diseñar
+- **CoE:** define estándares, patrones y criterios de aprobación.
+- **Seguridad:** aprueba riesgos técnicos, datos, herramientas y agentes sensibles.
+- **Legal/privacidad:** aprueba usos de propiedad intelectual, datos personales y regulación.
+- **Equipo de producto:** acepta el valor y el riesgo del caso de uso.
+- **Equipo de desarrollo:** implementa, prueba y mantiene el activo.
+- **Revisor humano:** responde por el cambio de código aprobado.
+- **Operaciones:** autoriza y supervisa acciones en producción.
 
-Los agentes pueden:
+## 5. Marco de desarrollo empresarial asistido por Copilot
 
-- Generar alternativas de arquitectura.
-- Identificar impactos en API, datos e integraciones.
-- Preparar modelos de amenazas y registros de decisiones.
-- Verificar los diseños frente a los estándares empresariales.
+El CoE debe publicar un **Enterprise Copilot Development Framework (ECDF)** obligatorio para equipos que utilicen Copilot.
 
-**Control humano:** el arquitecto y el responsable de seguridad aprueban las decisiones de diseño relevantes.
+### 5.1 Flujo estándar
 
-### Construir
+1. **Descubrir:** definir problema, usuarios, datos, riesgos y resultado esperado.
+2. **Planificar:** crear historias, criterios de aceptación, dependencias y plan técnico.
+3. **Diseñar:** seleccionar patrones aprobados, documentar decisiones y modelar amenazas.
+4. **Implementar:** usar instrucciones y skills del portal; limitar el alcance del agente.
+5. **Verificar:** ejecutar pruebas deterministas, análisis de seguridad, accesibilidad y calidad.
+6. **Revisar:** exigir revisión humana, evidencia de pruebas y trazabilidad de asistencia de IA.
+7. **Liberar:** cumplir controles de cambio, aprobación, rollback y segregación de funciones.
+8. **Operar:** monitorear, gestionar incidentes, medir resultados y actualizar el conocimiento.
+9. **Aprender:** capturar lecciones, actualizar activos y retirar patrones obsoletos.
 
-Los agentes pueden:
+### 5.2 Estándares técnicos
 
-- Generar código y pruebas.
-- Refactorizar dentro de ámbitos acotados.
-- Actualizar dependencias.
-- Explicar código desconocido.
-- Crear pull requests y borradores de documentación.
+El framework debe incluir plantillas y reglas para:
 
-**Control humano:** revisión de código obligatoria y protección de ramas.
+- Arquitectura, API, datos, integración, observabilidad y resiliencia.
+- Convenciones de código y estructura de repositorios.
+- Desarrollo seguro, privacidad por diseño y accesibilidad.
+- Pruebas unitarias, integración, contrato, E2E, rendimiento y mutación.
+- CI/CD, infraestructura como código, SBOM y gestión de dependencias.
+- Pull requests, CODEOWNERS, branch protection y revisiones.
+- Documentación, ADR, changelog y notas de versión.
+- Estrategias de despliegue, rollback y respuesta a incidentes.
 
-### Verificar
+Para el piloto `whsalazar-org/banco-chile-demo`, el baseline debe incluir React/JavaScript, HTML, CSS, pruebas, accesibilidad, dependencias, documentación y pull requests; no debe incluir despliegue autónomo en producción.
 
-Los agentes pueden:
+## 6. Arquitectura de instrucciones, prompts, skills y agentes
 
-- Generar pruebas unitarias, de integración y regresión.
-- Analizar fallos de pruebas.
-- Ejecutar análisis estático.
-- Detectar posibles problemas de seguridad y accesibilidad.
-- Resumir evidencias de prueba.
+### 6.1 Instrucciones
 
-**Control humano:** las puertas de calidad deben seguir siendo deterministas y basadas en herramientas; los agentes no pueden certificar su propio trabajo.
+Las instrucciones definen estándares persistentes y deben aplicarse según alcance:
 
-### Liberar
+- **Empresariales:** políticas, seguridad, privacidad y normas comunes.
+- **Organizacionales:** prácticas de una unidad o dominio.
+- **De repositorio:** arquitectura, comandos, convenciones y pruebas locales.
+- **Por ruta o tecnología:** reglas específicas para frontend, backend, infraestructura o documentación.
 
-Los agentes pueden:
+Las instrucciones deben ser breves, comprobables, versionadas y contener ejemplos de buenas y malas prácticas. Las instrucciones de repositorio pueden configurarse en Markdown y aplicarse a Copilot code review y cloud agent según su front matter y superficie; revisar la [documentación de instrucciones personalizadas de repositorio](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions).
 
-- Preparar notas de versión.
-- Validar requisitos previos de despliegue.
-- Generar planes de reversión.
-- Analizar el riesgo de los cambios.
-- Recomendar ventanas de despliegue.
+### 6.2 Prompts
 
-**Control humano:** aprobación de producción, segregación de funciones y autorización del cambio.
+El estándar empresarial de prompts debe definir:
 
-### Operar
+- Objetivo y contexto mínimo.
+- Rol del agente y límites de autoridad.
+- Entradas, supuestos y fuentes permitidas.
+- Pasos de análisis y criterios de éxito.
+- Formato de salida y evidencia requerida.
+- Comportamiento ante incertidumbre.
+- Datos prohibidos y acciones que requieren aprobación.
+- Casos de prueba y ejemplos de uso.
 
-Los agentes pueden:
+Los prompts aprobados deben tener propietario, versión, fecha de revisión, nivel de riesgo, métricas y advertencias de seguridad. No deben contener secretos, datos personales innecesarios ni instrucciones que permitan evadir controles.
 
-- Clasificar incidentes.
-- Correlacionar registros y alertas.
-- Sugerir remediaciones.
-- Preparar informes posteriores a incidentes.
-- Detectar problemas operativos recurrentes.
+### 6.3 Skills
 
-**Control humano:** inicialmente, la remediación autónoma debe limitarse a acciones reversibles y de bajo riesgo.
+Una skill debe ser una capacidad reutilizable para una tarea específica y repetible, con instrucciones y recursos asociados. El estándar empresarial debe exigir:
 
-## 5. Capacidades de la plataforma empresarial
+```text
+.github/skills/<nombre-de-la-skill>/
+├── SKILL.md
+├── references/
+├── templates/
+├── scripts/
+└── tests/
+```
 
-### Registro de agentes
+`SKILL.md` debe incluir front matter con `name` y `description`, disparadores claros, prerrequisitos, flujo paso a paso, límites, resultados esperados, solución de problemas y referencias. Las skills deben validarse antes de publicarse porque pueden incluir instrucciones ocultas, inyecciones de prompt o scripts maliciosos; consultar [Adding agent skills for GitHub Copilot](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills) y las [guías de skills de awesome-copilot](https://github.com/github/awesome-copilot/blob/main/instructions/agent-skills.instructions.md).
 
-Para cada agente se debe registrar:
+### 6.4 Agentes personalizados
 
-- Responsable y propósito de negocio.
-- Repositorios y entornos aprobados.
-- Dependencias de modelos y herramientas.
-- Clasificación de datos.
-- Permisos.
-- Nivel de riesgo.
-- Resultados de evaluación.
-- Historial de versiones.
-- Fecha de retiro.
+Cada agente debe declarar:
 
-### Entorno de ejecución seguro
+- Identidad, objetivo y alcance.
+- Responsabilidades y tareas excluidas.
+- Herramientas permitidas y permisos mínimos.
+- Fuentes de contexto autorizadas.
+- Pasos de trabajo y puntos de aprobación.
+- Criterios de calidad y formato de salida.
+- Manejo de errores, incertidumbre y escalamiento.
+- Casos de prueba y métricas.
+- Propietario, versión, nivel de riesgo y fecha de retiro.
 
-Debe proporcionar:
+La plantilla empresarial debe seguir una estructura explícita de identidad, responsabilidades, método, restricciones y resultados, coherente con las [guías de agentes de awesome-copilot](https://github.com/github/awesome-copilot/blob/main/instructions/agents.instructions.md).
 
-- Ejecución aislada.
-- Credenciales de corta duración.
-- Listas permitidas de repositorios y entornos.
-- Controles de salida de red.
-- Integración con un gestor de secretos.
-- Puntos de aprobación humana.
-- Registro completo de auditoría.
+Los agentes que modifiquen código deben crear cambios revisables, ejecutar las validaciones disponibles y nunca aprobar su propio trabajo.
 
-### Controles estándar de repositorios
+## 7. Portal empresarial de estándares Copilot
 
-Publicar plantillas reutilizables para:
+### 7.1 Propósito
 
-- Protección de ramas.
-- Revisiones de pull requests.
-- Puertas de calidad en CI/CD.
-- Análisis de dependencias.
-- Detección de secretos.
-- Análisis de composición de software.
-- Generación de SBOM.
-- Verificaciones de políticas de infraestructura.
-- Pruebas de accesibilidad.
-- Instrucciones para agentes y estándares de contribución.
+Crear un portal interno similar a [awesome-copilot](https://github.com/github/awesome-copilot), pero con contenido empresarial aprobado, búsqueda, contribución, validación y trazabilidad.
 
-### Marco de evaluación
+### 7.2 Catálogo
 
-Todo agente de producción debe evaluarse en:
+El portal debe organizar:
 
-- Tasa de finalización de tareas.
-- Precisión.
-- Tasa de regresiones.
-- Hallazgos de seguridad.
-- Tasa de cambios no sustentados o alucinaciones.
+- Instrucciones por lenguaje, framework, repositorio y dominio.
+- Prompts por etapa del SDLC y caso de uso.
+- Skills con recursos, scripts y ejemplos.
+- Agentes personalizados.
+- Plantillas de repositorio y workflows.
+- Patrones de arquitectura y seguridad.
+- Checklists de revisión y evaluación.
+- Guías de migración, troubleshooting y capacitación.
+- Casos de éxito, métricas y anti-patrones.
+
+Cada activo debe mostrar:
+
+- Nombre, descripción y etiquetas.
+- Nivel de riesgo y superficies compatibles.
+- Responsable y equipo mantenedor.
+- Versión, changelog y fecha de revisión.
+- Estado: propuesta, experimental, aprobado, deprecated o retirado.
+- Dependencias y permisos.
+- Evidencia de pruebas y aprobaciones.
+- Instrucciones de instalación o uso.
+- Enlaces a repositorios, issues y documentación.
+
+### 7.3 Flujo de contribución
+
+1. El equipo crea una propuesta desde una plantilla.
+2. Validaciones automáticas comprueban formato, metadatos, secretos, licencias, enlaces y seguridad.
+3. El propietario del dominio revisa utilidad y mantenibilidad.
+4. Seguridad y privacidad revisan el nivel de riesgo.
+5. El Consejo de estándares aprueba o devuelve cambios.
+6. Un workflow publica el activo en el portal con su versión.
+7. Los usuarios pueden valorar, comentar, reportar problemas y proponer mejoras.
+8. El mantenedor revisa métricas y caducidad periódicamente.
+
+### 7.4 Arquitectura propuesta
+
+- Repositorio central para fuentes y metadatos.
+- GitHub Pages o portal web interno para el catálogo.
+- GitHub Actions para validación, publicación y controles.
+- CODEOWNERS para aprobación por dominio.
+- JSON/YAML front matter para indexación y búsqueda.
+- Versionado semántico y releases.
+- Etiquetas de lenguaje, framework, riesgo y SDLC.
+- Integración opcional con un registro interno de agentes y una base de métricas.
+- Exportación de assets aprobados hacia repositorios de equipos mediante workflows o CLI.
+
+El portal no debe ser un repositorio de contenido sin control: debe funcionar como una **cadena de suministro de conocimiento y comportamiento para agentes**.
+
+## 8. Proceso de aprobación y ciclo de vida de activos
+
+### Puertas obligatorias
+
+- Validación de sintaxis y esquema.
+- Detección de secretos y datos sensibles.
+- Análisis de scripts y dependencias.
+- Revisión de inyección de prompt y abuso de herramientas.
+- Pruebas con casos representativos.
+- Revisión de propiedad intelectual y licencias.
+- Aprobación del propietario y del nivel de riesgo correspondiente.
+
+### Ciclo de vida
+
+`Propuesta → Experimental → Validación → Aprobado → Mantenimiento → Deprecated → Retirado`
+
+Los activos de alto riesgo deben tener caducidad, revisión trimestral y mecanismo de revocación. Las skills descargadas de fuentes externas deben fijarse a una versión o SHA y pasar por validación interna antes de su uso.
+
+## 9. Seguridad, privacidad y cumplimiento
+
+Aplicar controles contra:
+
+- Inyección de prompts.
+- Divulgación de información sensible.
+- Salidas inseguras ejecutadas sin validación.
+- Agencia excesiva y escalamiento de privilegios.
+- Dependencias y scripts maliciosos.
+- Manipulación de contexto o repositorios.
+- Código vulnerable o con licencias incompatibles.
+- Uso de agentes en sistemas regulados sin aprobación.
+
+Todo resultado generado por Copilot debe pasar por validaciones de software tradicionales. Los agentes no deben recibir credenciales permanentes; las acciones sobre producción deben utilizar identidades de corta duración, permisos mínimos, aprobación y rollback.
+
+## 10. Capacitación y habilidades
+
+Crear rutas por rol:
+
+- **Desarrollador:** fundamentos de Copilot, prompting, revisión de código, pruebas y seguridad.
+- **Tech lead/arquitecto:** diseño con IA, evaluación, límites de agentes y decisiones técnicas.
+- **QA:** generación de pruebas, evaluación de cobertura, mutación y validación de salidas.
+- **Seguridad:** amenazas de LLM, permisos, secretos, auditoría y respuesta a incidentes.
+- **Product owner:** requisitos, criterios de aceptación, priorización y riesgos.
+- **Administrador:** políticas, licencias, organizaciones, exclusiones y métricas.
+- **Mantenedor de assets:** estructura, versionado, pruebas y publicación en el portal.
+
+El programa debe incluir laboratorios, certificación interna, office hours, ejemplos por stack, guía de revisión de código generado y una comunidad de práctica.
+
+## 11. Métricas y evaluación
+
+### Valor de entrega
+
+- Tiempo de ciclo de pull requests.
+- Tiempo de entrega de cambios.
+- Frecuencia de despliegue.
+- Tareas completadas por agente.
+- Tiempo ahorrado validado por el equipo.
+
+### Calidad y seguridad
+
+- Defectos escapados.
+- Fallos de cambios y reversiones.
+- Vulnerabilidades introducidas.
+- Cobertura y mutación de pruebas.
+- Incidentes de secretos o datos.
+- Tasa de cambios rechazados en revisión.
+
+### Uso responsable
+
+- Tasa de intervención y override humano.
+- Acciones fuera de permisos.
+- Integridad de auditoría.
+- Excepciones de política.
+- Activos sin revisión vigente.
 - Costo por tarea completada.
-- Tasa de intervención humana.
-- Tiempo medio de resolución.
-- Satisfacción de los desarrolladores.
 
-Incluir riesgos como inyección de prompts, manejo inseguro de salidas, agencia excesiva y divulgación de información sensible.
+No declarar éxito por mayor velocidad si aumentan defectos, incidentes, deuda técnica o agotamiento del equipo.
 
-## 6. Hoja de ruta de implementación
+## 12. Hoja de ruta
 
 ### Fase 0 — Movilizar
 **17 de agosto–11 de septiembre de 2026**
 
-Entregables:
-
-- Estatuto ejecutivo.
-- Integrantes del CoE y derechos de decisión.
-- Evaluación del estado actual.
-- Inventario de herramientas, agentes, modelos y proveedores de IA.
-- Modelo de clasificación de riesgos.
-- Candidatos aprobados para pilotos.
-- Métricas iniciales.
-
-Utilizar **`whsalazar-org/banco-chile-demo`** como piloto inicial de bajo riesgo. Es una aplicación web pequeña de React/JavaScript con HTML y CSS. Comenzar con documentación, generación de pruebas, verificaciones de accesibilidad, revisión de dependencias y asistencia en pull requests; no iniciar con despliegue autónomo en producción.
+- Aprobar estatuto, presupuesto y órgano de decisión.
+- Inventariar licencias, herramientas, agentes, prompts, skills e instrucciones existentes.
+- Clasificar repositorios y datos por riesgo.
+- Definir el ECDF y los estándares mínimos.
+- Seleccionar `banco-chile-demo` como piloto de bajo riesgo.
+- Diseñar la taxonomía y el esquema de metadatos del portal.
 
 ### Fase 1 — Establecer controles
 **14 de septiembre–30 de octubre de 2026**
 
-Entregables:
+- Configurar políticas empresariales de Copilot.
+- Definir grupos, permisos, exclusiones, proveedores y modelos aprobados.
+- Publicar plantillas para instrucciones, prompts, skills y agentes.
+- Configurar repositorio central, CODEOWNERS, validaciones y portal mínimo.
+- Establecer métricas iniciales y registro de auditoría.
 
-- Política empresarial de IA y agentes.
-- Reglas de clasificación de datos.
-- Modelo de control de acceso de agentes.
-- Catálogo de modelos y proveedores aprobados.
-- Registro de agentes.
-- Requisitos de registro y auditoría.
-- Controles estándar de pull requests y CI/CD.
-- Plan de capacitación para desarrolladores.
-
-### Fase 2 — Pilotar agentes controlados
+### Fase 2 — Pilotar
 **2 de noviembre de 2026–29 de enero de 2027**
 
-Ejecutar entre tres y cinco pilotos:
-
-1. Agente de mantenimiento de código: gestiona incidencias pequeñas y crea pull requests en borrador.
-2. Agente de generación de pruebas: agrega pruebas sujeto a cobertura y pruebas de mutación.
-3. Agente de clasificación de seguridad: clasifica hallazgos y propone correcciones sin ocultarlos.
-4. Agente de documentación: mantiene sincronizada la documentación de API, arquitectura e incorporación.
-5. Agente de asistencia ante incidentes: resume la telemetría y propone remediaciones para aprobación humana.
-
-Cada piloto debe tener una línea base, nivel de riesgo, alcance limitado, responsable humano, mecanismo de reversión, umbral de éxito y decisión documentada de escalar, modificar o detener.
+- Probar agentes de documentación, pruebas, accesibilidad, dependencias y mantenimiento.
+- Publicar los primeros assets empresariales en el portal.
+- Medir calidad, seguridad, adopción, costo y tiempo ahorrado.
+- Ejecutar revisiones de seguridad y ejercicios de inyección de prompt.
+- Decidir qué activos se escalan, modifican o retiran.
 
 ### Fase 3 — Escalar por dominio
 **1 de febrero–30 de abril de 2027**
 
-Entregables:
+- Incorporar dominios mediante un onboarding repetible.
+- Crear champions y revisores por dominio.
+- Publicar skills y agentes por tecnología y etapa del SDLC.
+- Integrar el portal con repositorios y plantillas de equipos.
+- Establecer revisiones trimestrales de riesgo y valor.
 
-- Manual de incorporación de dominios.
-- Plantillas reutilizables de agentes.
-- Integraciones de herramientas aprobadas.
-- Conjuntos de datos de evaluación compartidos.
-- Catálogo interno de agentes.
-- Comunidad de práctica.
-- Objetivos de nivel de servicio del CoE.
-- Revisiones trimestrales de riesgo y valor.
-
-Escalar únicamente los agentes que demuestren mejoras medibles sin degradación inaceptable de seguridad, calidad o cumplimiento.
-
-### Fase 4 — Optimizar e institucionalizar
+### Fase 4 — Institucionalizar
 **3 de mayo–6 de agosto de 2027**
 
-Entregables:
+- Automatizar evaluación continua y reportes de cumplimiento.
+- Optimizar modelos, costos y permisos.
+- Integrar métricas Copilot con ingeniería, seguridad y operaciones.
+- Auditar el catálogo y retirar activos obsoletos.
+- Publicar resultados y actualizar el roadmap anual.
 
-- Revisión del portafolio empresarial de agentes.
-- Optimización de costos y modelos.
-- Evaluación continua en CI/CD.
-- Reportes automatizados de cumplimiento de políticas.
-- Proceso de retiro de agentes.
-- Marco actualizado de roles y habilidades.
-- Evaluación anual independiente de seguridad.
-- Reportes de riesgo y valor para la dirección.
+## 13. Backlog inicial de 90 días
 
-## 7. Modelo de niveles de riesgo
+1. Aprobar el estatuto y la política empresarial de Copilot.
+2. Definir riesgo, datos prohibidos y acciones no permitidas.
+3. Inventariar activos Copilot y herramientas existentes.
+4. Crear el repositorio del portal empresarial.
+5. Definir el esquema de metadatos y la taxonomía.
+6. Crear plantillas de instrucciones, prompts, skills y agentes.
+7. Implementar validaciones de seguridad, formato y licencias.
+8. Configurar CODEOWNERS, branch protection y CI.
+9. Preparar `banco-chile-demo` como repositorio piloto.
+10. Publicar cinco assets iniciales y probar su instalación.
+11. Capacitar a los primeros champions y revisores.
+12. Medir baseline y presentar la decisión de escalar o detener.
 
-| Nivel | Ejemplo | Controles requeridos |
-|---|---|---|
-| 1 — Asistivo | Documentación y explicación de código | Revisión del usuario y registro estándar |
-| 2 — Cambio acotado | Pull requests en borrador y generación de pruebas | Aislamiento, puertas de CI y revisión obligatoria |
-| 3 — Sensible | Correcciones de seguridad y sistemas con datos regulados | Aprobación de seguridad, auditoría ampliada y datos restringidos |
-| 4 — Alto impacto | Cambios en producción y decisiones financieras o de clientes | Autorización humana explícita, segregación de funciones y validación independiente |
-| 5 — Inicialmente prohibido | Despliegue autónomo no revisado o acciones empresariales irreversibles | No permitido durante la implementación inicial |
-
-## 8. Métricas y puertas de decisión
-
-### Productividad
-
-- Tiempo de entrega de cambios.
-- Tiempo de ciclo de pull requests.
-- Frecuencia de despliegue.
-- Tasa de retrabajo.
-- Tiempo de desarrollo ahorrado.
-
-### Calidad
-
-- Tasa de defectos escapados.
-- Tasa de fallos de cambios.
-- Cobertura de pruebas y puntuación de mutación.
-- Frecuencia de reversiones.
-- Tasa de rechazo en revisiones.
-
-### Seguridad y cumplimiento
-
-- Vulnerabilidades introducidas por cambios de agentes.
-- Incidentes de secretos y datos sensibles.
-- Excepciones de políticas.
-- Llamadas no autorizadas a herramientas.
-- Integridad de los registros de auditoría.
-
-### Adopción y economía
-
-- Usuarios y equipos activos.
-- Tareas completadas por agentes.
-- Costo por tarea.
-- Tasa de intervención humana.
-- Satisfacción de usuarios.
-- Finalización de capacitaciones.
-
-Utilizar métricas de entrega al estilo DORA como indicadores de resultados, pero no considerar un aumento del rendimiento como éxito si empeoran la calidad, la confiabilidad o el bienestar de los desarrolladores.
-
-## 9. Backlog recomendado para los primeros 90 días
-
-1. Aprobar el estatuto del CoE.
-2. Definir niveles de riesgo empresarial y usos prohibidos.
-3. Inventariar herramientas y agentes de IA.
-4. Establecer políticas de datos y modelos aprobados.
-5. Crear un ámbito seguro de GitHub para pilotos.
-6. Agregar instrucciones para agentes y estándares de contribución al repositorio.
-7. Configurar protección de ramas y verificaciones de CI obligatorias.
-8. Pilotar agentes de documentación, pruebas, accesibilidad y dependencias en `banco-chile-demo`.
-9. Establecer métricas iniciales de entrega y calidad.
-10. Realizar una revisión de seguridad usando NIST AI RMF y la guía de OWASP.
-11. Publicar un curso de capacitación para desarrolladores.
-12. Presentar una decisión de escalar o detener ante el comité directivo.
-
-## 10. Definición de éxito después de un año
+## 14. Criterios de éxito
 
 El CoE será exitoso cuando:
 
-- Los agentes estén disponibles mediante una plataforma empresarial gobernada.
-- Cada agente de producción tenga responsable, nivel de riesgo, permisos, registro de evaluación y trazabilidad.
-- Los equipos puedan incorporar un agente aprobado en días, no meses.
-- Los pilotos demuestren mejoras medibles sin aumentar los defectos escapados ni los incidentes de seguridad.
-- Los desarrolladores sepan cuándo utilizar agentes y cuándo es obligatorio el criterio humano.
-- El comportamiento autónomo de alto riesgo esté técnicamente restringido, no solo prohibido mediante políticas.
+- Cada agente y asset empresarial tenga propietario, versión, riesgo, permisos, evaluación y trazabilidad.
+- Los equipos encuentren y reutilicen estándares aprobados desde el portal.
+- Las contribuciones pasen por validaciones automáticas y revisiones responsables.
+- Los equipos incorporen un asset aprobado en días, no meses.
+- Copilot mejore el flujo de entrega sin aumentar defectos, vulnerabilidades o incidentes.
+- Los desarrolladores sepan cuándo usar instrucciones, prompts, skills o agentes.
+- Las acciones de alto riesgo estén técnicamente limitadas y requieran aprobación humana.
+- El catálogo tenga métricas de uso, satisfacción, calidad, costo y vigencia.
+
+## 15. Fuentes de referencia
+
+- [GitHub Copilot: agregar instrucciones personalizadas de repositorio](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
+- [GitHub Copilot: agregar skills de agentes](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)
+- [GitHub Copilot: exclusión de contenido](https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/context/content-exclusion)
+- [GitHub awesome-copilot](https://github.com/github/awesome-copilot)
+- [Guías de skills de awesome-copilot](https://github.com/github/awesome-copilot/blob/main/instructions/agent-skills.instructions.md)
+- [Guías de agentes de awesome-copilot](https://github.com/github/awesome-copilot/blob/main/instructions/agents.instructions.md)
+- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+- [OWASP Top 10 para aplicaciones LLM](https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/)
