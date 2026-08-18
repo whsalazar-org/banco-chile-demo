@@ -13,7 +13,7 @@ Este documento define un modelo de telemetría y un marco de KPI para medir:
 - La eficiencia, calidad, confiabilidad y costo de los agentes.
 - Los resultados para usuarios y negocio, no solo la actividad.
 
-El diseño puede implementarse detrás de un pequeño adaptador de telemetría, sin acoplar la interfaz de usuario a un proveedor específico de observabilidad.
+El diseño es adecuado para la demostración actual en JavaScript/React y puede implementarse detrás de un pequeño adaptador de telemetría, sin acoplar la interfaz de usuario a un proveedor específico de observabilidad.
 
 > [“Un SLI es un indicador de nivel de servicio: una medida cuantitativa cuidadosamente definida.”](https://sre.google/sre-book/service-level-objectives/)
 
@@ -315,6 +315,8 @@ La utilización debe segmentarse por `goal_type`, recorrido del usuario, superfi
 | **Proporción de llamadas útiles** | Llamadas que contribuyen a un resultado validado / llamadas totales | custom | Efectividad de la herramienta |
 | **Contribución de latencia MCP** | Duración MCP / duración completa de la ejecución | custom | Impacto de la dependencia |
 | **Tasa de fallos de validación de resultados** | Resultados inválidos / llamadas completadas | custom | Problemas de contratos y calidad de datos |
+
+La especificación de MCP define las herramientas como capacidades que los modelos pueden invocar sobre sistemas externos; por lo tanto, la telemetría de llamadas a herramientas debe distinguir los estados solicitado, autorizado, ejecutado y validado, en lugar de registrar únicamente una solicitud de red.
 
 La configuración de agentes personalizados de GitHub permite habilitar herramientas MCP específicas. [La documentación de GitHub indica que las herramientas pueden limitarse en el perfil del agente y en la configuración del repositorio.](https://docs.github.com/en/copilot/reference/custom-agents-configuration) Sin embargo, la disponibilidad de la configuración no implica que GitHub exponga todas las métricas operativas de cada llamada; esas métricas deben instrumentarse cuando sean necesarias.
 
