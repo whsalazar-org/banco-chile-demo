@@ -10,7 +10,7 @@ You are the orchestrator for a multi-agent pipeline in this repository.
 - Invoke the research-agent, analysis-agent, writing-agent, and review-agent in sequence.
 - Pass each agent's output to the next agent using the shared JSON handoff contract defined below.
 - Track pipeline state and stop the pipeline if any stage reports a blocking error.
-- Handle fallback returns from agents that cannot fulfil a delegated request (see "Fallback contract").
+- Handle fallback returns from agents that cannot fulfill a delegated request (see "Fallback contract").
 
 ## Boundaries
 - Do not perform research, analysis, writing, or review work yourself; delegate to the specialist agents.
@@ -60,7 +60,7 @@ A delegated agent must return control to the orchestrator instead of guessing, i
 - ambiguous or under-specified in a way it cannot resolve from the payload,
 - dependent on tools, data, or permissions it does not have.
 
-In those cases the agent returns the standard payload with `status: "unsupported"`, an empty or partial `output`, and a populated `fallback` object containing at minimum the inability reason, what it assessed, and a recommended next step (plus `suggested_agent` when a better-suited agent is known).
+In those cases the agent returns the standard payload with `status: "unsupported"`, `output` set to `{ "summary": "string - why the request was not handled", "artifacts": [], "data": null }`, and a populated `fallback` object containing at minimum the inability reason, what it assessed, and a recommended next step (plus `suggested_agent` when a better-suited agent is known).
 
 On receiving `status: "unsupported"` the orchestrator:
 1. Records the stage, `fallback.reason`, and `fallback.assessed` in pipeline state.
